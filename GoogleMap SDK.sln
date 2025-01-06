@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33801.468
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMap SDK", "GoogleMap SDK\GoogleMap SDK.csproj", "{19C9C37A-55F0-4FC2-AA2A-35C83248B681}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gmap", "GMap\Gmap.csproj", "{6FF34656-8744-4A66-ABC8-D8962F306D33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google Map API", "Google Map API\Google Map API.csproj", "{7EA945BE-50E5-483F-90E0-D4891E28F7CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19C9C37A-55F0-4FC2-AA2A-35C83248B681}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19C9C37A-55F0-4FC2-AA2A-35C83248B681}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19C9C37A-55F0-4FC2-AA2A-35C83248B681}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19C9C37A-55F0-4FC2-AA2A-35C83248B681}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FF34656-8744-4A66-ABC8-D8962F306D33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FF34656-8744-4A66-ABC8-D8962F306D33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FF34656-8744-4A66-ABC8-D8962F306D33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FF34656-8744-4A66-ABC8-D8962F306D33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EA945BE-50E5-483F-90E0-D4891E28F7CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EA945BE-50E5-483F-90E0-D4891E28F7CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EA945BE-50E5-483F-90E0-D4891E28F7CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EA945BE-50E5-483F-90E0-D4891E28F7CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FF0C87E2-16AD-4A90-9AE1-65EEEAFC5B12}
+	EndGlobalSection
+EndGlobal
