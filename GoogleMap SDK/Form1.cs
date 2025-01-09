@@ -16,5 +16,10 @@ namespace GoogleMap_SDK
         {
             InitializeComponent();
         }
+
+        private void autoCompleteTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

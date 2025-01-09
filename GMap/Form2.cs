@@ -31,11 +31,7 @@ namespace Gmap
         GoogleContext context = new GoogleContext(new GoogleSigned());
         MarkerOverlay marker1 = new MarkerOverlay("marker1");
         RouteOverlay route1 = new RouteOverlay("route1");
-              
-        List<string> autocompletetext = new List<string>();
-        List<string> autocompletetext2 = new List<string>();
-        GMap.NET.WindowsForms.GMapMarker markerorigin = null;
-        GMap.NET.WindowsForms.GMapMarker markerdestination = null;
+             
         PointLatLng origin;
         PointLatLng destination;
         List<Bitmap> allPhotos;
@@ -53,7 +49,7 @@ namespace Gmap
             autoCompleteTextBox1.DisplayMember = "Name";
             autoCompleteTextBox1.ValueMember = "Id";
 
-            autoCompleteTextBox2.KeyUp += AutoCompleteTextBox2_KeyUp;
+            autoCompleteTextBox2.KeyUp += AutoCompleteTextBox1_KeyUp;
             autoCompleteTextBox2._getPlaceId += AutoCompleteGetplaceId2;
             autoCompleteTextBox2.DisplayMember = "Name";
             autoCompleteTextBox2.ValueMember = "Id";
@@ -63,6 +59,8 @@ namespace Gmap
         {
             Console.WriteLine(((MarkerInfo)marker.Tag).PlaceId);
             MarkerInfo info = (MarkerInfo)marker.Tag;
+            flowLayoutPanel1.Controls.Clear();
+            flowLayoutPanel2.Controls.Clear();
             GetReview(info);
             GetPicture(allPhotos);
             
@@ -75,40 +73,20 @@ namespace Gmap
         }
         private void GetPicture(List<Bitmap> bitmaps)
         {
-
+            
             flowLayoutPanel2.Controls.Add(new PhotoItem(bitmaps));
 
         }
 
-        private void AutoCompleteTextBox2_KeyUp(object sender, KeyEventArgs e)
-        {
-            this.Timerextention((async () =>
-            {
-                AutoCompleteRequest autoCompleteRequest = new AutoCompleteRequest();
-                autoCompleteRequest.input = autoCompleteTextBox2.Text;
-                var result = await context.AutoComplete.AutoCompleteSearch(autoCompleteRequest);
-
-                List<PlaceModel> places = new List<PlaceModel>();
-                foreach (var item in result.predictions)
-                {
-                    places.Add(new PlaceModel
-                    {
-                        Name = item.structured_formatting.main_text,
-                        Id = item.place_id
-                        
-                    });
-                }
-                autoCompleteTextBox2.DataSource = places;
-            }));
-            
-        }
+       
 
         private void AutoCompleteTextBox1_KeyUp(object sender, KeyEventArgs e)
         {
+            AutoCompleteTextBox autoComplete = (AutoCompleteTextBox)sender;
             this.Timerextention((async () =>
             {
                 AutoCompleteRequest autoCompleteRequest = new AutoCompleteRequest();
-                autoCompleteRequest.input = autoCompleteTextBox1.Text;
+                autoCompleteRequest.input = autoComplete.Text;
                 var result = await context.AutoComplete.AutoCompleteSearch(autoCompleteRequest);
 
                 List<PlaceModel> places = new List<PlaceModel>();
@@ -120,7 +98,7 @@ namespace Gmap
                         Id = item.place_id
                     });
                 }
-                autoCompleteTextBox1.DataSource = places;
+                autoComplete.DataSource = places;
             }));
         }
         public async Task<List<Bitmap>> CollectPhotosAsync(List<string> photoReferences, int maxHeight)
@@ -152,11 +130,6 @@ namespace Gmap
         private async void AutoCompleteGetplaceId2(object sender, object e)
         {
 
-            //if (marker1.Markers.Contains(markerdestination))
-            //{
-            //    marker1.Markers.Remove(markerdestination);
-            //    this.gMapControl1.Refresh();
-            //}
             AutoCompleteTextBox data = (AutoCompleteTextBox)sender;
             
             PlacesDetailRequest placesDetailRequest = new PlacesDetailRequest();
@@ -170,11 +143,6 @@ namespace Gmap
             }
           
             allPhotos = await CollectPhotosAsync(photoReferences, 200);
-            //PlacePhotoRequest photoRequest = new PlacePhotoRequest();
-            //photoRequest.photo_reference = result.result.photos[0].photo_reference;
-            //photoRequest.maxheight = 30;
-            //Bitmap photobitmap = context.PlacePhoto.GetPhoto(photoRequest);
-
 
             PointLatLng markerdestination = new PointLatLng(result.result.geometry.location.lat, result.result.geometry.location.lng);
             MarkerInfo markerinfo = new MarkerInfo();
@@ -191,62 +159,8 @@ namespace Gmap
             this.mapControl1.SetCenter(markerinfo.Lat, markerinfo.Lng);
         }
 
-       
-        
-        private async void AutoCompleteGetplaceId(object sender, object e)
-        {            
-            //if (markers.Markers.Contains(markerorigin))
-            //{
-            //    markers.Markers.Remove(markerorigin);
-            //    this.gMapControl1.Refresh();
-            //}
-            PlacesDetailRequest placesDetailRequest = new PlacesDetailRequest();
-            placesDetailRequest.place_id = e.ToString();
-            var result = await context.PlacesDetail.GetPlaceDetail(placesDetailRequest);
-            PointLatLng markerorigin = new PointLatLng(result.result.geometry.location.lat, result.result.geometry.location.lng);
-            MarkerInfo markerinfo = new MarkerInfo();
-            markerinfo.Name = result.result.name;
-            markerinfo.Address = result.result.formatted_address;
-            markerinfo.PlaceId = result.result.place_id;
-            markerinfo.TextboxId = autoCompleteTextBox1.Name;
-            this.mapControl1.AddMarker(markerorigin, "marker1", markerinfo);
-          
-            //this.mapControl1.AddMarkers(pointLatLng[]);          
-            //this.mapControl1.AddMarker(pointLatLng,"id");
-            //this.mapControl1.AddMarkers(pointLatLng[],"id");
-           
-        }
 
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            route1.Clear();
-            DirectionRequest directionRequest = new DirectionRequest();
-            directionRequest.origin = textBox1.Text;
-            directionRequest.destination = textBox2.Text;
-            var result = await context.Direction.Direction(directionRequest);
-            foreach (var item in result.routes)
-            {
-                origin = new PointLatLng(item.legs[0].start_location.lat, item.legs[0].start_location.lng);
-                destination = new PointLatLng(item.legs[0].end_location.lat, item.legs[0].end_location.lng);
-                route1.AddRange(item.overview_polyline.polylinePoints.Select(x => (x.Latitude, x.Longitude)));
-                
-                //foreach (var data in item.legs[0].steps)
-                //{               
-                //    route1.Points.Add(new PointLatLng(data.end_location.lat, data.end_location.lng));                  
-                //}
-
-            }
-            
-            this.mapControl1.AddMarker(origin, "marker1");
-            this.mapControl1.AddMarker(destination, "marker1");
-            //GMap.NET.WindowsForms.GMapMarker markerorigin = new GMarkerGoogle(origin, GMarkerGoogleType.red_dot);
-            //GMap.NET.WindowsForms.GMapMarker markerdes = new GMarkerGoogle(destination, GMarkerGoogleType.red_dot);
-            //markers.Markers.Add(markerorigin);
-            //markers.Markers.Add(markerdes);
-        }
-                       
-       
-        private async void button2_Click(object sender, EventArgs e)
+        private async void button2_Click_1(object sender, EventArgs e)
         {
             route1.Clear();
             DirectionRequest directionRequest = new DirectionRequest();
@@ -257,36 +171,9 @@ namespace Gmap
             {
                 origin = new PointLatLng(item.legs[0].start_location.lat, item.legs[0].start_location.lng);
                 destination = new PointLatLng(item.legs[0].end_location.lat, item.legs[0].end_location.lng);
-                route1.AddRange(item.overview_polyline.polylinePoints.Select(x=> (x.Latitude,x.Longitude)));
-                //foreach (var data in item.legs[0].steps)
-                //{
-                //    route1.Points.Add(new PointLatLng(data.end_location.lat, data.end_location.lng));
-                //}
+                route1.AddRange(item.overview_polyline.polylinePoints.Select(x => (x.Latitude, x.Longitude)));
 
             }
-            
-            
         }
-        private void Form2_Load(object sender, EventArgs e)
-        {
-            List<PlaceModel> placeModels = new List<PlaceModel>();
-            placeModels.Add(new PlaceModel { Name = "NCU", Id = "1" });
-            placeModels.Add(new PlaceModel { Name = "CYCU", Id="2" });
-            listBox1.DataSource = placeModels;
-            listBox1.DisplayMember = "Name";
-            listBox1.ValueMember = "Id";
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Console.WriteLine(listBox1.SelectedValue.ToString());        
-        }
-
-        private void autoCompleteTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        
     }
 }

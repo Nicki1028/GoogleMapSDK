@@ -28,13 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.autoCompleteTextBox1 = new Gmap.AutoCompleteTextBox();
+            this.SuspendLayout();
+            // 
+            // autoCompleteTextBox1
+            // 
+            this.autoCompleteTextBox1.DataSource = null;
+            this.autoCompleteTextBox1.DisplayMember = null;
+            this.autoCompleteTextBox1.DropDownFontSize = 12F;
+            this.autoCompleteTextBox1.Location = new System.Drawing.Point(116, 195);
+            this.autoCompleteTextBox1.Name = "autoCompleteTextBox1";
+            this.autoCompleteTextBox1.Size = new System.Drawing.Size(166, 22);
+            this.autoCompleteTextBox1.TabIndex = 2;
+            this.autoCompleteTextBox1.ValueMember = null;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.autoCompleteTextBox1);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+        private Gmap.AutoCompleteTextBox autoCompleteTextBox1;
     }
 }
 

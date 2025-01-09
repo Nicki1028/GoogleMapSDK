@@ -1,13 +1,21 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using GMap.NET;
+using Google_Map_API;
+using Google_Map_API.Direction;
+using Google_Map_API.Place_Photo;
+using Google_Map_API.Places;
+using Google_Map_API.Places_Detail;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static HttpUtility.AllbumCreateResponseModel;
 
 namespace Gmap
 {
@@ -35,12 +43,13 @@ namespace Gmap
                 }
             }
         }
+        GoogleContext context = new GoogleContext(new GoogleSigned());
+        List<Bitmap> allPhotos;
         public AutoCompleteTextBox()
         {
             InitializeComponent();
             ResetListBox();
         }
-
         private void InitializeComponent()
         {
             this._listBox = new ListBox();
@@ -53,7 +62,6 @@ namespace Gmap
             this.ResumeLayout(false);
 
         }
-
         private void ListBoxDouble_Click(object sender, EventArgs e)
         {
             if (_listBox.Visible)
@@ -65,7 +73,93 @@ namespace Gmap
                 
             }
         }
+        private async Task<List<Bitmap>> CollectPhotosAsync(List<string> photoReferences, int maxHeight)
+        {
+            List<Task<Bitmap>> photoTasks = new List<Task<Bitmap>>();
+            foreach (var photoRef in photoReferences)
+            {
+                photoTasks.Add(Task.Run(() =>
+                {
+                    var photoRequest = new PlacePhotoRequest
+                    {
+                        photo_reference = photoRef,
+                        maxheight = maxHeight
+                    };
+                    return context.PlacePhoto.GetPhoto(photoRequest);
+                }));
+            }
+            allPhotos = (await Task.WhenAll(photoTasks)).ToList();
+            return allPhotos;
+        }
 
+        private async void GetPlaceInfo(string placeId, MapControl mapControl, string overlayId)
+        {
+            PlacesDetailRequest placesDetailRequest = new PlacesDetailRequest();
+            placesDetailRequest.place_id = placeId;
+            var result = await context.PlacesDetail.GetPlaceDetail(placesDetailRequest);
+
+            List<string> photoReferences = new List<string>();
+            foreach (var info in result.result.photos)
+            {
+                photoReferences.Add(info.photo_reference);
+            }
+
+            allPhotos = await CollectPhotosAsync(photoReferences, 200);
+
+            PointLatLng markerdestination = new PointLatLng(result.result.geometry.location.lat, result.result.geometry.location.lng);
+            
+            MarkerInfo markerinfo = new MarkerInfo();
+            markerinfo.Name = result.result.name;
+            markerinfo.Address = result.result.formatted_address;
+            markerinfo.PlaceId = result.result.place_id;
+            markerinfo.TextboxId = _listBox.Name;
+            markerinfo.reviews = result.result.reviews;
+            markerinfo.Lat = result.result.geometry.location.lat;
+            markerinfo.Lng = result.result.geometry.location.lng;
+
+            mapControl.AddMarker(markerdestination, overlayId, markerinfo);
+            mapControl.SetCenter(markerinfo.Lat, markerinfo.Lng);
+        }
+        private void TextAutoComplete(Form form)
+        {
+            form.Timerextention((async () =>
+            {
+                AutoCompleteRequest autoCompleteRequest = new AutoCompleteRequest();
+                autoCompleteRequest.input = this.Text;
+                var result = await context.AutoComplete.AutoCompleteSearch(autoCompleteRequest);
+
+                List<PlaceModel> places = new List<PlaceModel>();
+                foreach (var item in result.predictions)
+                {
+                    places.Add(new PlaceModel
+                    {
+                        Name = item.structured_formatting.main_text,
+                        Id = item.place_id
+                    });
+                }
+                this.DataSource = places;
+            }));
+        } 
+        private async void GetRoute(RouteOverlay route)
+        {            
+            PointLatLng origin;
+            PointLatLng destination;
+
+            DirectionRequest directionRequest = new DirectionRequest();
+            directionRequest.origin = this.GetPlaceId();
+            directionRequest.destination = this.GetPlaceId();
+            var result = await context.Direction.Direction(directionRequest);
+            foreach (var item in result.routes)
+            {
+                origin = new PointLatLng(item.legs[0].start_location.lat, item.legs[0].start_location.lng);
+                destination = new PointLatLng(item.legs[0].end_location.lat, item.legs[0].end_location.lng);
+                route.AddRange(item.overview_polyline.polylinePoints.Select(x => (x.Latitude, x.Longitude)));
+            }
+        }
+        public string GetPlaceId()
+        {
+            return "place_id:" + _placeId;
+        }
         private void ShowListBox()
         {
             if (!_isAdded && Parent != null)
@@ -89,17 +183,6 @@ namespace Gmap
         {
             switch (e.KeyCode)
             {
-                //case Keys.Tab:
-                //    {
-                //        if (_listBox.Visible)
-                //        {
-                            
-                //            _getPlaceId.Invoke(this, _listBox.SelectedValue);
-                //            ResetListBox();
-                            
-                //        }
-                //        break;
-                //    }
                 case Keys.Down:
                     {
                         if ((_listBox.Visible) && (_listBox.SelectedIndex < _listBox.Items.Count - 1))
@@ -143,28 +226,7 @@ namespace Gmap
             _listBox.ValueMember = "Id";
             ShowListBox();
             _listBox.Width = this.Size.Width;
-
-            //String word = GetWord();
-
-            //if (_values != null && word.Length > 0)
-            //{                          
-            //    ShowListBox();
-            //    _listBox.Font = new Font(_listBox.Font.FontFamily, _dropDownFontSize);
-            //    // 設定 ListBox 的寬度與 AutoCompleteTextBox 相同
-            //    _listBox.Width = this.Width;
-
-            //    using (Graphics graphics = _listBox.CreateGraphics())
-            //    {
-            //        for (int i = 0; i < _listBox.Items.Count; i++)
-            //        {
-            //            _listBox.Height += _listBox.GetItemHeight(i);
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    ResetListBox();
-            //}
+ 
         }
         public object DataSource
         {
@@ -204,10 +266,7 @@ namespace Gmap
             }
         }
 
-        public string GetPlaceId()
-        {
-            return "place_id:"+_placeId;
-        }
+       
 
     }
 

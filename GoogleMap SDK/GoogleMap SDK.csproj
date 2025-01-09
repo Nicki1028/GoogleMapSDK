@@ -54,6 +54,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -75,6 +78,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GMap\Gmap.csproj">
+      <Project>{6ff34656-8744-4a66-abc8-d8962f306d33}</Project>
+      <Name>Gmap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Google Map API\Google Map API.csproj">
+      <Project>{7ea945be-50e5-483f-90e0-d4891e28f7cc}</Project>
+      <Name>Google Map API</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
