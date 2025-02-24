@@ -56,10 +56,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Components\Photo\BasePhoto_WPF.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,9 +70,7 @@
     </Compile>
     <Compile Include="Components\AutoComplete\PlaceAutoComplete_WPF.cs" />
     <Compile Include="Components\Photo\BasePhotoItem_WPF.cs" />
-    <Compile Include="Components\Photo\BasePhoto_WPF.xaml.cs">
-      <DependentUpon>BasePhoto_WPF.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Components\Photo\BasePhoto_WPF.cs" />
     <Compile Include="Components\Photo\PlacePhotoItem_WPF.cs" />
     <Compile Include="Extensions\TimerExtension.cs" />
     <Compile Include="MainWindow.xaml.cs">

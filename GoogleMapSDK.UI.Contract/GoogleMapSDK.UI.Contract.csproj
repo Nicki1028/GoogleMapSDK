@@ -44,8 +44,15 @@
   <ItemGroup>
     <Compile Include="Components\AutoCompleteBase.cs" />
     <Compile Include="Components\PhotoBase.cs" />
+    <Compile Include="Components\ReviewBase.cs" />
     <Compile Include="Models\AutoCompleteModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GoogleMapSDK.API\GoogleMapSDK.API.csproj">
+      <Project>{8B98A11B-C376-48E0-968B-596393EC0217}</Project>
+      <Name>GoogleMapSDK.API</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

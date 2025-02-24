@@ -35,7 +35,7 @@
             // 
             this.placeAutoComplete2.DataSource = null;
             this.placeAutoComplete2.DropDownFontSize = 12F;
-            this.placeAutoComplete2.Location = new System.Drawing.Point(206, 365);
+            this.placeAutoComplete2.Location = new System.Drawing.Point(474, 402);
             this.placeAutoComplete2.Name = "placeAutoComplete2";
             this.placeAutoComplete2.Size = new System.Drawing.Size(100, 22);
             this.placeAutoComplete2.TabIndex = 1;

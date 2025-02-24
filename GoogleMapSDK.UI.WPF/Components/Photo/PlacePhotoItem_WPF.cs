@@ -57,8 +57,8 @@ namespace GoogleMapSDK.UI.WPF.Components.Photo
             return allPhotos;
         }
 
-        //private void button1_Click(object sender, EventArgs e) => Button_ClickForward(sender, e);
-        //private void button2_Click(object sender, EventArgs e) => Button_ClickBackward(sender, e);
+        private void button1_Click(object sender, EventArgs e) => Button_ClickForward(sender, e);
+        private void button2_Click(object sender, EventArgs e) => Button_ClickBackward(sender, e);
 
     }
 }

@@ -25,12 +25,13 @@ namespace GoogleMapSDK.UI.WPF
         public MainWindow()
         {
             InitializeComponent();
-            BasePhotoItem_WPF basePhoto = new BasePhotoItem_WPF();
-            
-               
-            this.container.Children.Add(basePhoto);
-            
+        }
+        private async void Form1_LoadAsync(object sender, EventArgs e)
+        {
+            PlacePhotoItem_WPF placePhotoItem = new PlacePhotoItem_WPF();
+            placePhotoItem.ImageSource = await placePhotoItem.CollectPhotosAsync("ChIJy02Q7MEjaDQRVuRcRdQpwc0", 200);
 
+            this.container.Children.Add(placePhotoItem);
         }
     }
 }

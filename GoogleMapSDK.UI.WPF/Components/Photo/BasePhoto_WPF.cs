@@ -24,7 +24,7 @@ namespace GoogleMapSDK.UI.WPF.Components.Photo
     /// <summary>
     /// BasePhotoItem.xaml 的互動邏輯
     /// </summary>
-    public abstract partial class BasePhoto_WPF: UserControl, PhotoBase
+    public abstract class BasePhoto_WPF : UserControl, PhotoBase
     {
         protected List<Bitmap> _photos;
         protected int counter = 0;
@@ -33,16 +33,19 @@ namespace GoogleMapSDK.UI.WPF.Components.Photo
         protected Button previous;
         protected Button next;
         protected Grid myGrid;
-   
+
         public abstract List<Bitmap> ImageSource { set; }
 
         public BasePhoto_WPF()
         {
-           
-            PhotoBase temp = this;
-            temp.InitializeComponent();
+
+            InitializeComponent();
+            previous.Click += Button_ClickBackward;
+            next.Click += Button_ClickForward;
         }
-     
+
+        
+
         int PhotoBase.index => counter;
 
         protected BitmapSource ChangeBitmapToBitmapSource(Bitmap bmp)
@@ -98,23 +101,23 @@ namespace GoogleMapSDK.UI.WPF.Components.Photo
             next.IsEnabled = counter + 1 < _photos.Count;
             previous.IsEnabled = counter > 0;
         }
-        void PhotoBase.Button_ClickBackward(object sender, EventArgs e)
+        public void Button_ClickBackward(object sender, EventArgs e)
         {
             MovePrevious();
         }
 
-        void PhotoBase.Button_ClickForward(object sender, EventArgs e)
+        public void Button_ClickForward(object sender, EventArgs e)
         {
             MoveNext();
         }
-        void PhotoBase.InitializeComponent()
+        public void InitializeComponent()
         {
             Grid myGrid = new Grid();
             myGrid.Width = 700;
             myGrid.Height = 200;
             myGrid.HorizontalAlignment = HorizontalAlignment.Left;
             myGrid.VerticalAlignment = VerticalAlignment.Top;
-            
+
 
             ColumnDefinition colDef1 = new ColumnDefinition();
             ColumnDefinition colDef2 = new ColumnDefinition();
@@ -132,14 +135,14 @@ namespace GoogleMapSDK.UI.WPF.Components.Photo
 
 
             image = new System.Windows.Controls.Image();
-            image.Source = new BitmapImage(new Uri( "C:\\Users\\USER\\Desktop\\image.jpg"));
+            image.Source = new BitmapImage(new Uri("C:\\Users\\USER\\Desktop\\image.jpg"));
             image.Height = 200;
             image.Width = 200;
-            image.Stretch = Stretch.Uniform ;
+            image.Stretch = Stretch.Uniform;
             Grid.SetRow(image, 0);
-            Grid.SetRowSpan(image,3);
+            Grid.SetRowSpan(image, 3);
             Grid.SetColumn(image, 1);
-            myGrid.Children.Add(image); 
+            myGrid.Children.Add(image);
 
             previous = new Button();
             previous.Height = 30;

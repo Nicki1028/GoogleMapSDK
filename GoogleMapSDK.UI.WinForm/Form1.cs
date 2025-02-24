@@ -1,4 +1,5 @@
 ﻿using GoogleMapSDK.UI.WinForm.Components.AutoComplete;
+using GoogleMapSDK.UI.WinForm.Components.Comment;
 using GoogleMapSDK.UI.WinForm.Components.Photo;
 using System;
 using System.Collections.Generic;
@@ -21,12 +22,17 @@ namespace GoogleMapSDK.UI.WinForm
 
         private async void Form1_LoadAsync(object sender, EventArgs e)
         {
-            PlacePhotoItem placePhotoItem = new PlacePhotoItem();
-            placePhotoItem.ImageSource = await placePhotoItem.CollectPhotosAsync("ChIJy02Q7MEjaDQRVuRcRdQpwc0", 200);
-            
+            //PlacePhotoItem placePhotoItem = new PlacePhotoItem();
+            //placePhotoItem.ImageSource = await placePhotoItem.CollectPhotosAsync("ChIJy02Q7MEjaDQRVuRcRdQpwc0", 200);
+           
+            //placePhotoItem.Size = new Size(800, 200);
 
-            placePhotoItem.Size = new Size(800, 200);
-            this.Controls.Add(placePhotoItem);
+            PlaceReviewItem placeReviewItem = new PlaceReviewItem();
+            placeReviewItem.Size = new Size(320, 600);
+            placeReviewItem.ReviewSource = await placeReviewItem.GetReviewsAsync("ChIJy02Q7MEjaDQRVuRcRdQpwc0");
+
+            //this.Controls.Add(placePhotoItem);
+            this.Controls.Add(placeReviewItem);
         }
     }
 }
