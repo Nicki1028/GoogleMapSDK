@@ -1,4 +1,4 @@
-﻿using GoogleMapSDK.UI.WinForm.Components.Photo;
+﻿using GoogleMapSDK.UI.WPF.Comment;
 using GoogleMapSDK.UI.WPF.Components.Photo;
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,10 @@ namespace GoogleMapSDK.UI.WPF
             PlacePhotoItem_WPF placePhotoItem = new PlacePhotoItem_WPF();
             placePhotoItem.ImageSource = await placePhotoItem.CollectPhotosAsync("ChIJy02Q7MEjaDQRVuRcRdQpwc0", 200);
 
-            this.container.Children.Add(placePhotoItem);
+            PlaceReviewItem_WPF placeReviewItem_WPF = new PlaceReviewItem_WPF();
+            placeReviewItem_WPF.ReviewSource = await placeReviewItem_WPF.GetReviewsAsync("ChIJy02Q7MEjaDQRVuRcRdQpwc0");
+            
+            this.container.Children.Add(placeReviewItem_WPF);
         }
     }
 }

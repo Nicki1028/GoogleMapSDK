@@ -17,8 +17,7 @@ namespace GoogleMapSDK.API
             {
                 _parameters.Add(key, value);             
 
-            }
-         
+            }    
         }
         public void Restructure(string key, string symbol)
         {
@@ -52,7 +51,6 @@ namespace GoogleMapSDK.API
             {
                 _parameters.Remove(key);
             }
-
         }
 
         public string Combine()

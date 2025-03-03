@@ -28,7 +28,7 @@ namespace GoogleMapSDK.UI.WinForm
             //placePhotoItem.Size = new Size(800, 200);
 
             PlaceReviewItem placeReviewItem = new PlaceReviewItem();
-            placeReviewItem.Size = new Size(320, 600);
+            placeReviewItem.Size = new Size(350, 600);
             placeReviewItem.ReviewSource = await placeReviewItem.GetReviewsAsync("ChIJy02Q7MEjaDQRVuRcRdQpwc0");
 
             //this.Controls.Add(placePhotoItem);

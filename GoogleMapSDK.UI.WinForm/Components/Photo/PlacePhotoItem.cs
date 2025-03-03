@@ -13,7 +13,7 @@ namespace GoogleMapSDK.UI.WinForm.Components.Photo
 {
     public partial class PlacePhotoItem : BasePhoto
     {
-        GoogleContext context = GoogleContext.GetGoogleContext();
+        GoogleContext context = GoogleContext.InitialGoogleContext();
         public override List<Bitmap> ImageSource 
         {
             set

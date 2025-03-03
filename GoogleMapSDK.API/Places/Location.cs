@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GoogleMapSDK.API.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +8,10 @@ using System.Threading.Tasks;
 namespace GoogleMapSDK.API.Places
 {
     public class Location
-    {
+    {           
         private double _latitude;
         private double _longitude;
-
+   
         public double Latitude
         {
             get { return _latitude; }

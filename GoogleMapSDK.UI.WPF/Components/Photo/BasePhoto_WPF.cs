@@ -160,7 +160,6 @@ namespace GoogleMapSDK.UI.WPF.Components.Photo
             Grid.SetColumn(next, 2);
             myGrid.Children.Add(next);
 
-
             this.Content = myGrid;
         }
     }

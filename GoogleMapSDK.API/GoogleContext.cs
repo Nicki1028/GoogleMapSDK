@@ -33,30 +33,36 @@ namespace GoogleMapSDK.API
 
         public DirectionService Direction { get; set; }
 
+        private static GoogleContext _context = null;
+        public static GoogleContext MapAPIContext => _context;
         public GoogleContext()
         {
-            GoogleSigned googleSigned = new GoogleSigned();
-            GoogleSigned.AssignAllServices(googleSigned);
-            HttpRequest httpRequest = new HttpRequest();
-            httpRequest.BaseUrl = "https://maps.google.com/maps/api/";
+            if(_context == null)
+            {
+                GoogleSigned googleSigned = new GoogleSigned();
+                GoogleSigned.AssignAllServices(googleSigned);
+                HttpRequest httpRequest = new HttpRequest();
+                httpRequest.BaseUrl = "https://maps.google.com/maps/api/";
+
+                Geocoding = new GeocodingService(httpRequest);
+                StaticMap = new StaticMapService(httpRequest);
+                PlacesDetail = new PlacesDetailService(httpRequest);
+                NearbyAndText = new NearbyAndTextServise(httpRequest);
+                PlaceSearch = new PlaceSearchServise(httpRequest);
+                AutoComplete = new AutoCompleteServise(httpRequest);
+                PlacePhoto = new PlacePhotoServise();
+                Direction = new DirectionService(httpRequest);
+            }
            
-            Geocoding = new GeocodingService(httpRequest);
-            StaticMap = new StaticMapService(httpRequest);
-            PlacesDetail = new PlacesDetailService(httpRequest);
-            NearbyAndText = new NearbyAndTextServise(httpRequest);
-            PlaceSearch = new PlaceSearchServise(httpRequest);
-            AutoComplete = new AutoCompleteServise(httpRequest);
-            PlacePhoto = new PlacePhotoServise();
-            Direction = new DirectionService(httpRequest);
 
         }
         
-        public static GoogleContext GetGoogleContext()
+        public static GoogleContext InitialGoogleContext()
         {
-            GoogleContext context = new GoogleContext();
-            if (context != null)
+            
+            if (_context != null)
             {
-                return context;
+                return _context;
             }
             return null;
         }

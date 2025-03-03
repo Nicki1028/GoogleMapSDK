@@ -18,7 +18,7 @@ namespace GoogleMapSDK.UI.WPF.Components.AutoComplete
         GoogleContext context = null;
         public PlaceAutoComplete()
         {
-            context = GoogleContext.GetGoogleContext();
+            context = GoogleContext.InitialGoogleContext();
         }
 
         protected override async Task<IEnumerable<KeyValueModel>> GetCompleteSourceAsync()

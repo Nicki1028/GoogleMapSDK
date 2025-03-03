@@ -42,7 +42,6 @@ namespace GoogleMapSDK.UI.WinForm.Components.Comment
                 FlowLayoutPanel commonPanel = LoadReview(review);
                 commonPanel.Width = this.Size.Width;
                 flowLayoutPanel.Controls.Add(commonPanel);
-
             }
             this.Controls.Add(flowLayoutPanel);
 
@@ -52,11 +51,8 @@ namespace GoogleMapSDK.UI.WinForm.Components.Comment
         {
             FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel
             {
-
-                FlowDirection = FlowDirection.LeftToRight,
                 Height = 150,
-                WrapContents = true,
-                Padding = new Padding(10),
+                WrapContents = true,               
                 Margin = new Padding(5),
                 BorderStyle = BorderStyle.FixedSingle,
             };
@@ -64,34 +60,26 @@ namespace GoogleMapSDK.UI.WinForm.Components.Comment
 
             PictureBox pictureBox = new PictureBox
             {
-                Size = new Size(50, 50),
-               
-                SizeMode = PictureBoxSizeMode.Zoom,
-                
+                Size = new Size(50, 50),               
+                SizeMode = PictureBoxSizeMode.Zoom,               
             };
             pictureBox.LoadAsync(review.profile_photo_url);
 
             Label nameLabel = new Label
             {
                 Text = review.author_name,
-                Font = new Font("Arial", 10, FontStyle.Bold),
-             
-
+                Font = new Font("Arial", 12, FontStyle.Bold),           
             };
 
             Label starLabel = new Label
             {
                 Text = string.Join("  ", Enumerable.Range(1, review.rating).Select(x => "★")),
                 Font = new Font("Arial", 12),
-                
-
             };
 
             Label timeLabel = new Label
             {
                 Text = review.relative_time_description,
-               
-
             };
 
             Label commentLabel = new Label
@@ -99,8 +87,7 @@ namespace GoogleMapSDK.UI.WinForm.Components.Comment
                 Text = review.text,
           
                 Width = flowLayoutPanel.Width,
-                Height = 100,
-                
+                Height = 100,              
                 Font = new Font("Times New Roman", 12)
             };
 
@@ -132,8 +119,7 @@ namespace GoogleMapSDK.UI.WinForm.Components.Comment
             tableLayout.Controls.Add(starLabel, 1, 1);   // 星星評價
             tableLayout.Controls.Add(timeLabel, 1, 2);   // 時間
             tableLayout.Controls.Add(commentLabel, 1, 3); // 評論
-
-
+          
             flowLayoutPanel.Controls.Add(tableLayout);
             return flowLayoutPanel;
             

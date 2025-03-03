@@ -33,9 +33,6 @@ namespace GoogleMapSDK.API
             string url = qsb.Combine();
             return url;
         }
-
-
-
         private void ProcessProperties(QueryStringBuilder strbuilder, object obj, bool restructure = false)
         {
             var props = obj.GetType().GetProperties();
@@ -65,13 +62,11 @@ namespace GoogleMapSDK.API
                         var classattribute = prop.GetCustomAttribute<Classtostr>();
                         bool re = classattribute != null;
                         ProcessProperties(strbuilder, value, re);
-
                         if (re)
                         {
-                            strbuilder.Restructure(classattribute._rename, System.Web.HttpUtility.UrlEncode(classattribute._symbol));
-
+                            //strbuilder.Restructure(classattribute._rename, System.Web.HttpUtility.UrlEncode(classattribute._symbol));
+                            strbuilder.Restructure(classattribute._rename, classattribute._symbol);
                         }
-
                     }
                     else
                     {

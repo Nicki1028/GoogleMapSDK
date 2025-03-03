@@ -21,7 +21,7 @@ namespace GoogleMapSDK.UI.WPF.Components.Photo
             }
         }
 
-        GoogleContext context = GoogleContext.GetGoogleContext();
+        GoogleContext context = GoogleContext.InitialGoogleContext();
         public PlacePhotoItem_WPF()
         {
 

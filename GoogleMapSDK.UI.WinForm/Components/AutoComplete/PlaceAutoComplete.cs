@@ -14,7 +14,7 @@ namespace GoogleMapSDK.UI.WinForm.Components.AutoComplete
         GoogleContext context = null;
         public override string DisplayMember => "Name";
         public override string ValueMember => "Id";
-        public PlaceAutoComplete() { context = GoogleContext.GetGoogleContext(); }
+        public PlaceAutoComplete() { context = GoogleContext.InitialGoogleContext(); }
 
         protected override async Task<IEnumerable<KeyValueModel>> GetCompleteSourceAsync()
         {

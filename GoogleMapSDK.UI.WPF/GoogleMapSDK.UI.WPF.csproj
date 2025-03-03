@@ -64,6 +64,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Comment\BaseReviewItem_WPF.cs" />
+    <Compile Include="Comment\BaseReview_WPF.cs" />
+    <Compile Include="Comment\PlaceReviewItem_WPF.cs" />
     <Compile Include="Components\AutoComplete\BaseAutoComplete_WPF.cs" />
     <Compile Include="Components\AutoComplete\BaseAutoComplete_WPF.designer.cs">
       <DependentUpon>BaseAutoComplete_WPF.cs</DependentUpon>
