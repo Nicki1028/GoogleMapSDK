@@ -1,6 +1,7 @@
 ﻿using GoogleMapSDK.API;
 using GoogleMapSDK.API.Places;
 using GoogleMapSDK.API.Places_Detail;
+using GoogleMapSDK.Core;
 using GoogleMapSDK.UI.WinForm.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GoogleMapSDK.UI.WinForm.Components.AutoComplete
 {
-    public class PlaceAutoComplete : BaseAutoComplete<KeyValueModel,MarkerInfo>
+    public class PlaceAutoComplete : BaseAutoComplete<KeyValueModel,PlaceInfo>
     {
         GoogleContext context = null;
         public override string DisplayMember => "Name";
@@ -32,13 +33,13 @@ namespace GoogleMapSDK.UI.WinForm.Components.AutoComplete
             return places;  
         }
 
-        protected override async Task<MarkerInfo> GetSelectItemAsync(string selectedItem)
+        protected override async Task<PlaceInfo> GetSelectItemAsync(string selectedItem)
         {
             PlacesDetailRequest placesDetailRequest = new PlacesDetailRequest();
             placesDetailRequest.place_id = selectedItem;
             var result = await context.PlacesDetail.GetPlaceDetail(placesDetailRequest);
 
-            MarkerInfo markerinfo = new MarkerInfo();
+            PlaceInfo markerinfo = new PlaceInfo();
             markerinfo.Name = result.result.name;
             markerinfo.Address = result.result.formatted_address;
             markerinfo.PlaceId = result.result.place_id;

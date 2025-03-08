@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static GoogleMapSDK.API.Places_Detail.PlacesDetailResponse;
+using GoogleMapSDK.Core;
 
 namespace GoogleMapSDK.UI.WPF.Comment
 {

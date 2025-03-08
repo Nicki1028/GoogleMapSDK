@@ -8,7 +8,7 @@ using static GoogleMapSDK.API.Places_Detail.PlacesDetailResponse;
 
 namespace GoogleMapSDK.Core
 {
-    public class MarkerInfo
+    public class PlaceInfo
     {
         public string Name { get; set; }
         public string TextboxId { get; set; }
@@ -16,7 +16,6 @@ namespace GoogleMapSDK.Core
         public string PlaceId { get; set; }
         public float Lat { get; set; }
         public float Lng { get; set; }
-        public Review[] reviews { get; set; }
-        public Bitmap photo { get; set; }
+
     }
 }

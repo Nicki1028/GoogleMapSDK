@@ -27,12 +27,11 @@ namespace GoogleMapSDK.Core.Marker
             var result = await context.PlacesDetail.GetPlaceDetail(placesDetailRequest);
 
             PointLatLng markerdestination = new PointLatLng(result.result.geometry.location.lat, result.result.geometry.location.lng);
-            MarkerInfo markerinfo = new MarkerInfo();
+            PlaceInfo markerinfo = new PlaceInfo();
             markerinfo.Name = result.result.name;
             markerinfo.Address = result.result.formatted_address;
             markerinfo.PlaceId = result.result.place_id;
             markerinfo.TextboxId = result.result.name;
-            markerinfo.reviews = result.result.reviews;
             markerinfo.Lat = result.result.geometry.location.lat;
             markerinfo.Lng = result.result.geometry.location.lng;
 
@@ -51,12 +50,11 @@ namespace GoogleMapSDK.Core.Marker
             var data = await context.PlacesDetail.GetPlaceDetail(placesDetailRequest);
 
             PointLatLng markerdestination = new PointLatLng(data.result.geometry.location.lat, data.result.geometry.location.lng);
-            MarkerInfo markerinfo = new MarkerInfo();
+            PlaceInfo markerinfo = new PlaceInfo();
             markerinfo.Name = data.result.name;
             markerinfo.Address = data.result.formatted_address;
             markerinfo.PlaceId = data.result.place_id;
-            markerinfo.TextboxId = data.result.name;
-            markerinfo.reviews = data.result.reviews;
+            markerinfo.TextboxId = data.result.name;          
             markerinfo.Lat = data.result.geometry.location.lat;
             markerinfo.Lng = data.result.geometry.location.lng;
 

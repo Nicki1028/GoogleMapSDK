@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace GoogleMapSDK.UI.WinForm.Components.Comment
 {
-    internal class BaseReviewItem:BaseReview
+    public class BaseReviewItem:BaseReview
     {
         public BaseReviewItem()
         {

@@ -81,7 +81,6 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\KeyValueModel.cs" />
-    <Compile Include="Models\MarkerInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -114,6 +113,10 @@
     <ProjectReference Include="..\GoogleMapSDK.API\GoogleMapSDK.API.csproj">
       <Project>{8B98A11B-C376-48E0-968B-596393EC0217}</Project>
       <Name>GoogleMapSDK.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoogleMapSDK.Core\GoogleMapSDK.Core.csproj">
+      <Project>{8053D229-FAF5-44CE-95EE-653BF636183F}</Project>
+      <Name>GoogleMapSDK.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\GoogleMapSDK.UI.Contract\GoogleMapSDK.UI.Contract.csproj">
       <Project>{5129C142-EA26-4F00-A7C3-134C58D5C49A}</Project>

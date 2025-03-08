@@ -15,7 +15,7 @@ namespace GoogleMapSDK.Core.Overlay.MarkerOverlay
         {
             this.Id = nameid;
         }
-        public override void Add(double latitude, double longitude, MarkerInfo markerInfo = null)
+        public override void Add(double latitude, double longitude, PlaceInfo markerInfo = null)
         {
             Add(new PointLatLng(latitude, longitude), markerInfo);
             if ( markerInfo == null)
@@ -23,7 +23,7 @@ namespace GoogleMapSDK.Core.Overlay.MarkerOverlay
                 return;
             }          
         }
-        public override void Add(PointLatLng point, MarkerInfo markerInfo = null)
+        public override void Add(PointLatLng point, PlaceInfo markerInfo = null)
         {
             if (markerInfo != null)
             {
@@ -32,13 +32,13 @@ namespace GoogleMapSDK.Core.Overlay.MarkerOverlay
                 marker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                 marker.Tag = markerInfo;
                 marker.ToolTipText = markerInfo.Name + "\r\n" + markerInfo.Address;
-                if (!this.Markers.Any(x => ((MarkerInfo)x.Tag).TextboxId == markerInfo.TextboxId))
+                if (!this.Markers.Any(x => ((PlaceInfo)x.Tag).TextboxId == markerInfo.TextboxId))
                 {
                     this.Markers.Add(marker);
                 }
                 else
                 {
-                    var markerclear = this.Markers.First(x => ((MarkerInfo)x.Tag).TextboxId == markerInfo.TextboxId);
+                    var markerclear = this.Markers.First(x => ((PlaceInfo)x.Tag).TextboxId == markerInfo.TextboxId);
                     this.Markers.Remove(markerclear);
                     this.Markers.Add(marker);
                 }

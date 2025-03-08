@@ -1,6 +1,7 @@
 ﻿using GoogleMapSDK.API;
 using GoogleMapSDK.API.Place_Photo;
 using GoogleMapSDK.API.Places_Detail;
+using GoogleMapSDK.Core;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

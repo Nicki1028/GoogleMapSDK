@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapSDK.Test", "GoogleMapSDK.Test\GoogleMapSDK.Test.csproj", "{2D7306E3-7171-49A6-AF19-803182B21B74}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapSDK.API", "GoogleMapSDK.API\GoogleMapSDK.API.csproj", "{8B98A11B-C376-48E0-968B-596393EC0217}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapSDK.Core", "GoogleMapSDK.Core\GoogleMapSDK.Core.csproj", "{8053D229-FAF5-44CE-95EE-653BF636183F}"
@@ -15,18 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapSDK.UI.WinForm", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapSDK.UI.WPF", "GoogleMapSDK.UI.WPF\GoogleMapSDK.UI.WPF.csproj", "{0CA80FD3-CC07-47C8-BE32-5C3941C4ACFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapSDK.UI.WPF.Test", "GoogleMapSDK.UI.WPF.Test\GoogleMapSDK.UI.WPF.Test.csproj", "{A7A4466F-357A-4E06-9CDC-B10D87847EDC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2D7306E3-7171-49A6-AF19-803182B21B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D7306E3-7171-49A6-AF19-803182B21B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D7306E3-7171-49A6-AF19-803182B21B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D7306E3-7171-49A6-AF19-803182B21B74}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B98A11B-C376-48E0-968B-596393EC0217}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B98A11B-C376-48E0-968B-596393EC0217}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B98A11B-C376-48E0-968B-596393EC0217}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,10 +39,6 @@ Global
 		{0CA80FD3-CC07-47C8-BE32-5C3941C4ACFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CA80FD3-CC07-47C8-BE32-5C3941C4ACFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CA80FD3-CC07-47C8-BE32-5C3941C4ACFD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A7A4466F-357A-4E06-9CDC-B10D87847EDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7A4466F-357A-4E06-9CDC-B10D87847EDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7A4466F-357A-4E06-9CDC-B10D87847EDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7A4466F-357A-4E06-9CDC-B10D87847EDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

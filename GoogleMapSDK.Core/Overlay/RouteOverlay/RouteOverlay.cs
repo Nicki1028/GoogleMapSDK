@@ -42,7 +42,7 @@ namespace GoogleMapSDK.Core.Overlay.RouteOverlay
         {
             return this;
         }
-        public override void Add(double latitude, double longitude, MarkerInfo markerInfo)
+        public override void Add(double latitude, double longitude, PlaceInfo markerInfo)
         {
             throw new NotImplementedException();
         }
@@ -50,7 +50,7 @@ namespace GoogleMapSDK.Core.Overlay.RouteOverlay
         {
             throw new NotImplementedException();
         }
-        public override void Add(PointLatLng point, MarkerInfo markerInfo)
+        public override void Add(PointLatLng point, PlaceInfo markerInfo)
         {
             throw new NotImplementedException();
         }

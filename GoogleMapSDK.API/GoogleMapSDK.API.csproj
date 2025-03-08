@@ -42,9 +42,6 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RestEase, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestEase.1.6.4\lib\net452\RestEase.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -78,7 +75,6 @@
     <Compile Include="Geocoding\GeocodingRequest.cs" />
     <Compile Include="Geocoding\GeocodingResponse.cs" />
     <Compile Include="Geocoding\GeocodingService.cs" />
-    <Compile Include="GoogleContext.cs" />
     <Compile Include="GoogleSigned.cs" />
     <Compile Include="Place Detail\PlacesDetailRequest.cs" />
     <Compile Include="Place Detail\PlacesDetailResponse.cs" />

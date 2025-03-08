@@ -8,6 +8,7 @@ using GoogleMapSDK.API.Places_Detail;
 using System.Runtime.Remoting.Contexts;
 using GoogleMapSDK.API;
 using System.Windows.Forms;
+using GoogleMapSDK.Core;
 
 namespace GoogleMapSDK.UI.WinForm.Components.Photo
 {

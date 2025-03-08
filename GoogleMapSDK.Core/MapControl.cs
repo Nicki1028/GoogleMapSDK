@@ -89,7 +89,7 @@ namespace GoogleMapSDK.Core
 
         }
 
-        public void AddMarker(PointLatLng location, string overlayId, MarkerInfo markerInfo)
+        public void AddMarker(PointLatLng location, string overlayId, PlaceInfo markerInfo)
         {
             if (OverlayPairs.ContainsKey(overlayId))
             {

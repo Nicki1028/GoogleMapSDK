@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GoogleMapSDK.UI.WinForm.Components.Photo
 {
-    internal class BasePhotoItem : BasePhoto
+    public class BasePhotoItem : BasePhoto
     {
 
         public BasePhotoItem() 

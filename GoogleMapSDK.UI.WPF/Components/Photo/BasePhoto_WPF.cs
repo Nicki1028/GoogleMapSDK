@@ -1,5 +1,4 @@
 ﻿using GoogleMapSDK.UI.Contract.Components;
-using GoogleMapSDK.UI.WinForm.Components.Photo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

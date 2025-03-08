@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0CA80FD3-CC07-47C8-BE32-5C3941C4ACFD}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>GoogleMapSDK.UI.WPF</RootNamespace>
     <AssemblyName>GoogleMapSDK.UI.WPF</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -39,8 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -118,13 +120,13 @@
       <Project>{8B98A11B-C376-48E0-968B-596393EC0217}</Project>
       <Name>GoogleMapSDK.API</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GoogleMapSDK.Core\GoogleMapSDK.Core.csproj">
+      <Project>{8053d229-faf5-44ce-95ee-653bf636183f}</Project>
+      <Name>GoogleMapSDK.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GoogleMapSDK.UI.Contract\GoogleMapSDK.UI.Contract.csproj">
       <Project>{5129C142-EA26-4F00-A7C3-134C58D5C49A}</Project>
       <Name>GoogleMapSDK.UI.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GoogleMapSDK.UI.WinForm\GoogleMapSDK.UI.WinForm.csproj">
-      <Project>{7D7679F9-2BDA-45FD-903D-5153DF71206C}</Project>
-      <Name>GoogleMapSDK.UI.WinForm</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
