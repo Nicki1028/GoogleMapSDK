@@ -3,15 +3,7 @@ using GoogleMapSDK.API;
 using GoogleMapSDK.API.Direction;
 using GoogleMapSDK.Core.Models;
 using GoogleMapSDK.Core.Overlay.RouteOverlay;
-using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
-using static GoogleMapSDK.API.Direction.DirectionResponse;
-
 namespace GoogleMapSDK.Core.Route
 {
     public class RouteContext

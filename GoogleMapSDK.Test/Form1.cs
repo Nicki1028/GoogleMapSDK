@@ -1,10 +1,4 @@
-﻿using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms.Markers;
-using GMap.NET.WindowsForms;
-using GMap.NET;
-using GoogleMapSDK.API.Places;
-using GoogleMapSDK.API;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,8 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GoogleMapSDK.Core.Overlay.MarkerOverlay;
 using GoogleMapSDK.Core.Overlay.RouteOverlay;
-using GoogleMapSDK.API.Direction;
 using GoogleMapSDK.Core;
+using GoogleMapSDK.API.Places;
+using GoogleMapSDK.API.Direction;
 
 namespace GoogleMapSDK.Test
 {
@@ -38,6 +33,7 @@ namespace GoogleMapSDK.Test
    
         public async Task<List<PointLatLng>> GooglePlaceDetailAsync(string destination, int radius)
         {
+
             List<PointLatLng> Latlngpoints = new List<PointLatLng>();
             TextSearchRequest textSearchRequest = new TextSearchRequest();
             {

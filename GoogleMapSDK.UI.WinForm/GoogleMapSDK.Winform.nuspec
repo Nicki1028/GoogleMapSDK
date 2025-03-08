@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>GoogleMapSDK.WinForm</id>
+    <version>1.0.3</version>
+    <authors>Nicki</authors>
+    <owners>Nicki</owners>
+    <description>WinForm library for Google Map SDK</description>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="13.0.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\GoogleMapSDK.UI.WinForm.dll" target="lib\net472\" />
+	<file src="bin\Release\GoogleMapSDK.API.dll" target="lib\net472\" />
+	<file src="bin\Release\GoogleMapSDK.UI.Contract.dll" target="lib\net472\" />
+  </files>
+</package>

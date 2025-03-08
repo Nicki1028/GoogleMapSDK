@@ -92,6 +92,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GoogleMapSDK.API\GoogleMapSDK.API.csproj">
+      <Project>{8b98a11b-c376-48e0-968b-596393ec0217}</Project>
+      <Name>GoogleMapSDK.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GoogleMapSDK.Core\GoogleMapSDK.Core.csproj">
       <Project>{8053d229-faf5-44ce-95ee-653bf636183f}</Project>
       <Name>GoogleMapSDK.Core</Name>

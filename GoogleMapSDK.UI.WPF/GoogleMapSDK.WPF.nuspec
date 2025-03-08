@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>GoogleMapSDK.Core</id>
+    <version>1.0.0</version>
+    <authors>YourName</authors>
+    <owners>YourCompany</owners>
+    <description>Core library for Google Map SDK</description>
+    <dependencies>
+      <dependency id="GMap.NET.Core" version="2.1.7"/>
+      <dependency id="Newtonsoft.Json" version="13.0.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\GoogleMapSDK.UI.WPF.dll" target="lib\net472\" />
+	<file src="bin\Release\GoogleMapSDK.API.dll" target="lib\net472\" />
+  </files>
+</package>
