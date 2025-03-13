@@ -24,7 +24,7 @@ namespace GoogleMapSDK.UI.WinForm
         {
             //PlacePhotoItem placePhotoItem = new PlacePhotoItem();
             //placePhotoItem.ImageSource = await placePhotoItem.CollectPhotosAsync("ChIJy02Q7MEjaDQRVuRcRdQpwc0", 200);
-           
+
             //placePhotoItem.Size = new Size(800, 200);
 
             PlaceReviewItem placeReviewItem = new PlaceReviewItem();

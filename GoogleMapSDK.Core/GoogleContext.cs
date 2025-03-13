@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using GoogleMapSDK.API;
@@ -57,7 +58,7 @@ namespace GoogleMapSDK.Core
            
 
         }
-        
+
         public static GoogleContext InitialGoogleContext()
         {
             
@@ -65,9 +66,12 @@ namespace GoogleMapSDK.Core
             {
                 return _context;
             }
-            return null;
+            Type type = typeof(GoogleContext);
+            _context = (GoogleContext)Activator.CreateInstance(type);
+            return _context;
         }
 
 
     }
+
 }

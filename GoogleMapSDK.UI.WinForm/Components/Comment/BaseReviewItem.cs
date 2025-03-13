@@ -14,10 +14,10 @@ namespace GoogleMapSDK.UI.WinForm.Components.Comment
     {
         public BaseReviewItem()
         {
-
+            InitializeComponent();
         }
 
-        public override Review[] ReviewSource
+        public override List<Review> ReviewSource
         {
             set
             {

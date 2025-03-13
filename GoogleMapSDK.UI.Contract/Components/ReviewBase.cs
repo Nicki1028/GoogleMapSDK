@@ -10,7 +10,7 @@ namespace GoogleMapSDK.UI.Contract.Components
 {
     public interface ReviewBase
     {
-        Review[] ReviewSource { set; }
+        List<Review> ReviewSource { set; }
        
         void InitializeComponent();
       

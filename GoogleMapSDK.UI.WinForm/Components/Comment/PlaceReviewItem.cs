@@ -11,27 +11,30 @@ using GoogleMapSDK.Core;
 
 namespace GoogleMapSDK.UI.WinForm.Components.Comment
 {
-    internal class PlaceReviewItem : BaseReview
+    public class PlaceReviewItem : BaseReview
     {
-        public PlaceReviewItem() { }
-        public override Review[] ReviewSource
+        GoogleContext context = null;
+        public PlaceReviewItem() { 
+            this.context = GoogleContext.InitialGoogleContext();
+        }
+        public override List<Review> ReviewSource
         {
             set
             {
                 this._reviews = value;
                 InitializeComponent();
             }
+
         }
 
-        GoogleContext context = GoogleContext.InitialGoogleContext();
 
-        public async Task<Review[]> GetReviewsAsync(string placeId)
+        public async Task<List<Review>> GetReviewsAsync(string placeId)
         {
             PlacesDetailRequest placesDetailRequest = new PlacesDetailRequest();
             placesDetailRequest.place_id = placeId;
             var result = await context.PlacesDetail.GetPlaceDetail(placesDetailRequest);
 
-            return result.result.reviews;
+            return result.result.reviews.ToList();
 
         }
     }

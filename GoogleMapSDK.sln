@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapSDK.UI.WinForm", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapSDK.UI.WPF", "GoogleMapSDK.UI.WPF\GoogleMapSDK.UI.WPF.csproj", "{0CA80FD3-CC07-47C8-BE32-5C3941C4ACFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMapSDK.WinForm.Test", "GoogleMapSDK.WinForm.Test\GoogleMapSDK.WinForm.Test.csproj", "{BD8AF1D0-C485-4C6A-B770-833985615DBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{0CA80FD3-CC07-47C8-BE32-5C3941C4ACFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CA80FD3-CC07-47C8-BE32-5C3941C4ACFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CA80FD3-CC07-47C8-BE32-5C3941C4ACFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD8AF1D0-C485-4C6A-B770-833985615DBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD8AF1D0-C485-4C6A-B770-833985615DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD8AF1D0-C485-4C6A-B770-833985615DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD8AF1D0-C485-4C6A-B770-833985615DBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

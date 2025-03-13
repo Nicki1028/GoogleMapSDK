@@ -13,9 +13,9 @@ namespace GoogleMapSDK.UI.WinForm.Components.Comment
 {
     public abstract class BaseReview : UserControl, ReviewBase
     {
-        public abstract Review[] ReviewSource { set; }
+        public abstract List<Review> ReviewSource { set ; }
 
-        protected Review[] _reviews;
+        protected List<Review> _reviews = new List<Review>();   
 
         protected Review review;
 
