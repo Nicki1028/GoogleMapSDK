@@ -15,7 +15,7 @@ namespace GoogleMapSDK.UI.WPF.Comment
         GoogleContext context = GoogleContext.InitialGoogleContext();
 
         public PlaceReviewItem_WPF() { }
-        public override Review[] ReviewSource
+        public override List<Review> ReviewSource
         {
             set
             {

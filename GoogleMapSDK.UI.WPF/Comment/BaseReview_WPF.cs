@@ -18,9 +18,9 @@ namespace GoogleMapSDK.UI.WPF.Comment
 {
     public abstract class BaseReview_WPF : UserControl, ReviewBase
     {
-        public abstract Review[] ReviewSource { set; }
+        public abstract List<Review> ReviewSource { set; }
 
-        protected Review[] _reviews;
+        protected List<Review> _reviews;
 
         protected Review review;
 

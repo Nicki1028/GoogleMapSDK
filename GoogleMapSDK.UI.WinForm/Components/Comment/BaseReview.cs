@@ -114,7 +114,6 @@ namespace GoogleMapSDK.UI.WinForm.Components.Comment
             // 加入控件
             tableLayout.Controls.Add(pictureBox, 0, 0);  // 圖片在第一列第一行 (左上角)
             tableLayout.SetRowSpan(pictureBox, 4);       // 讓圖片跨 4 行
-
             tableLayout.Controls.Add(nameLabel, 1, 0);   // 名稱
             tableLayout.Controls.Add(starLabel, 1, 1);   // 星星評價
             tableLayout.Controls.Add(timeLabel, 1, 2);   // 時間

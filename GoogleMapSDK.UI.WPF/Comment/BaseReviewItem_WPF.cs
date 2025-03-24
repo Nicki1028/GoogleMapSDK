@@ -15,7 +15,7 @@ namespace GoogleMapSDK.UI.WPF.Comment
 
         }
 
-        public override Review[] ReviewSource
+        public override List<Review> ReviewSource
         {
             set
             {
