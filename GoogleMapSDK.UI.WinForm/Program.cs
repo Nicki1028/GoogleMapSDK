@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DIContainer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,10 @@ namespace GoogleMapSDK.UI.WinForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            NickiService service = new NickiService();
+            
+          // Application.Run(new Form1());
         }
     }
 }

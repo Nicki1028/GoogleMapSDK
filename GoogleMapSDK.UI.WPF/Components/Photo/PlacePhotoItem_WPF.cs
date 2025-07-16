@@ -1,7 +1,6 @@
-﻿using GoogleMapSDK.API;
-using GoogleMapSDK.API.Place_Photo;
-using GoogleMapSDK.API.Places_Detail;
-using GoogleMapSDK.Core;
+﻿using GoogleMapSDK.UI.Contract.API;
+using GoogleMapSDK.UI.Contract.API.Place_Photo;
+using GoogleMapSDK.UI.Contract.API.Places_Detail.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,17 +21,17 @@ namespace GoogleMapSDK.UI.WPF.Components.Photo
             }
         }
 
-        GoogleContext context = GoogleContext.InitialGoogleContext();
-        public PlacePhotoItem_WPF()
+        private IGoogleContext _googleContext;
+        public PlacePhotoItem_WPF(IGoogleContext googleContext)
         {
-
+            this._googleContext = googleContext;
         }
         public async Task<List<Bitmap>> CollectPhotosAsync(string placeId, int maxHeight)
         {
             PlacesDetailRequest placesDetailRequest = new PlacesDetailRequest();
             placesDetailRequest.place_id = placeId;
 
-            var result = await context.PlacesDetail.GetPlaceDetail(placesDetailRequest);
+            var result = await _googleContext.PlaceDetail.GetPlaceDetail(placesDetailRequest);
 
             List<string> photoReferences = new List<string>();
             foreach (var info in result.result.photos)
@@ -51,7 +50,7 @@ namespace GoogleMapSDK.UI.WPF.Components.Photo
                         photo_reference = photoRef,
                         maxheight = maxHeight
                     };
-                    return context.PlacePhoto.GetPhoto(photoRequest);
+                    return _googleContext.PlacePhoto.GetPhoto(photoRequest);
                 }));
             }
             List<Bitmap> allPhotos = (await Task.WhenAll(photoTasks)).ToList();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GoogleMapSDK.UI.Contract.API;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,16 +10,15 @@ namespace GoogleMapSDK.UI.WinForm.Components.Photo
 {
     public class BasePhotoItem : BasePhoto
     {
-
-        public BasePhotoItem() 
+        public BasePhotoItem(IGoogleContext context) : base(context)
         {
-
         }
 
         public override List<Bitmap> ImageSource
         {
             set
             {
+                
                 this._photos = value;
                 RenderImages();
             }

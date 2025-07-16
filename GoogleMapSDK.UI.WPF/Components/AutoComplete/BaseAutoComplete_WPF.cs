@@ -43,12 +43,9 @@ namespace GoogleMapSDK.UI.WPF.Components.AutoComplete
         }
 
         protected abstract Task<IEnumerable<T>> GetCompleteSourceAsync();
-
         protected abstract Task<T2> GetSelectItemAsync(string selectedItem);
 
         public event EventHandler<T2> OnSelectItem;
-
-
         public BaseAutoComplete()
         {
             InitializeComponent();
@@ -74,8 +71,6 @@ namespace GoogleMapSDK.UI.WPF.Components.AutoComplete
                 StaysOpen = false, // 點擊外部時自動關閉
                 Child = _listBox // 將 ListBox 作為 Popup 的內容
             };
-
-
 
             KeyDown += AutoCompleteList_KeyDown;
             _listBox.MouseDoubleClick += AutoCompleteList_ItemSelected;

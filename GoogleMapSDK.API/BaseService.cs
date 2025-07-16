@@ -1,6 +1,7 @@
 ﻿using GoogleMapSDK.API.Attributes;
 using GoogleMapSDK.API.Enums;
 using GoogleMapSDK.API.Place_Photo;
+using GoogleMapSDK.UI.Contract.API;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,16 +24,16 @@ namespace GoogleMapSDK.API
             string url = qsb.Combine();
             return url;
         }
-        public string ToUri(PlacePhotoRequest request)
-        {
-            var qsb = new QueryStringBuilder();
+        //public string ToUri(PlacePhotoRequest request)
+        //{
+        //    var qsb = new QueryStringBuilder();
 
-            ProcessProperties(qsb, request);
-            qsb.Delete("searchtype");
+        //    ProcessProperties(qsb, request);
+        //    qsb.Delete("searchtype");
 
-            string url = qsb.Combine();
-            return url;
-        }
+        //    string url = qsb.Combine();
+        //    return url;
+        //}
         private void ProcessProperties(QueryStringBuilder strbuilder, object obj, bool restructure = false)
         {
             var props = obj.GetType().GetProperties();

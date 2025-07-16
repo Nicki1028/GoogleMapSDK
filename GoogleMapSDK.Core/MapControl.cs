@@ -1,11 +1,6 @@
 ﻿using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
-using GoogleMapSDK.API;
-using GoogleMapSDK.API.Direction;
-using GoogleMapSDK.API.Geocoding;
-using GoogleMapSDK.API.Places;
-using GoogleMapSDK.API.Places_Detail;
 using GoogleMapSDK.Core.Overlay;
 using GoogleMapSDK.Core.Overlay.MarkerOverlay;
 using GoogleMapSDK.Core.Overlay.RouteOverlay;
@@ -15,21 +10,24 @@ using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
-using static GoogleMapSDK.API.Direction.DirectionResponse;
 using System.Windows.Forms;
 using GoogleMapSDK.Core.Route;
 using GoogleMapSDK.Core.Marker;
+using GoogleMapSDK.UI.Contract.API.Models;
+using GoogleMapSDK.UI.Contract.API;
 
 namespace GoogleMapSDK.Core
 {
-    public class MapControl : GMapControl
+    public class MapControl : GMapControl, IGoogleMap
     {
       
         GMapOverlay mapoverlay = new GMapOverlay("mapoverlay");
         public RouteContext _routeContext;
         public MarkerContext _MarkerContext;
-        public MapControl()
+        private IGoogleContext _googleContext;
+        public MapControl(IGoogleContext googleContext)
         {
+            _googleContext = googleContext;
             this.MapProvider = GoogleMapProvider.Instance;
             GMaps.Instance.Mode = AccessMode.ServerAndCache;
             this.MouseWheelZoomType = MouseWheelZoomType.MousePositionWithoutCenter;
@@ -39,8 +37,9 @@ namespace GoogleMapSDK.Core
             this.MaxZoom = 20;
             this.Zoom = 15;
             this.Overlays.Add(mapoverlay);
-            _routeContext = new RouteContext(this);
-            _MarkerContext = new MarkerContext(this) ;
+            _routeContext = new RouteContext(this, _googleContext);
+            _MarkerContext = new MarkerContext(this, _googleContext);
+            
         }
 
         public Dictionary<string, MapOverlay> OverlayPairs = new Dictionary<string, MapOverlay>();

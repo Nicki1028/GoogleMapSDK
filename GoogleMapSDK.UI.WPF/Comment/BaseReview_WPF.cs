@@ -10,9 +10,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
-using static GoogleMapSDK.API.Places_Detail.PlacesDetailResponse;
 using Brushes = System.Windows.Media.Brushes;
 using Image = System.Windows.Controls.Image;
+using static GoogleMapSDK.UI.Contract.API.Places_Detail.Models.PlacesDetailResponse;
 
 namespace GoogleMapSDK.UI.WPF.Comment
 {

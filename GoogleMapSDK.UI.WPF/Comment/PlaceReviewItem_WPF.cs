@@ -1,20 +1,20 @@
-﻿using GoogleMapSDK.API.Places_Detail;
-using GoogleMapSDK.API;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static GoogleMapSDK.API.Places_Detail.PlacesDetailResponse;
-using GoogleMapSDK.Core;
+using GoogleMapSDK.UI.Contract.API;
+using static GoogleMapSDK.UI.Contract.API.Places_Detail.Models.PlacesDetailResponse;
+using GoogleMapSDK.UI.Contract.API.Places_Detail.Models;
 
 namespace GoogleMapSDK.UI.WPF.Comment
 {
     internal class PlaceReviewItem_WPF:BaseReview_WPF
     {
-        GoogleContext context = GoogleContext.InitialGoogleContext();
-
-        public PlaceReviewItem_WPF() { }
+        private IGoogleContext _googlecontext;
+        public PlaceReviewItem_WPF(IGoogleContext googlecontext) 
+        { 
+            this._googlecontext = googlecontext;
+        }
         public override List<Review> ReviewSource
         {
             set
@@ -23,11 +23,12 @@ namespace GoogleMapSDK.UI.WPF.Comment
                 InitializeComponent();
             }
         }
+
         public async Task<Review[]> GetReviewsAsync(string placeId)
         {
             PlacesDetailRequest placesDetailRequest = new PlacesDetailRequest();
             placesDetailRequest.place_id = placeId;
-            var result = await context.PlacesDetail.GetPlaceDetail(placesDetailRequest);
+            var result = await _googlecontext.PlaceDetail.GetPlaceDetail(placesDetailRequest);
 
             return result.result.reviews;
 

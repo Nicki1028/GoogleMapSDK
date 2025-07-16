@@ -1,21 +1,17 @@
-﻿using GoogleMapSDK.API;
-using GoogleMapSDK.API.Places_Detail;
-using static GoogleMapSDK.API.Places_Detail.PlacesDetailResponse;
-using Microsoft.SqlServer.Server;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using GoogleMapSDK.Core;
+using GoogleMapSDK.UI.Contract.API;
+using GoogleMapSDK.UI.Contract.API.Places_Detail.Models;
+using static GoogleMapSDK.UI.Contract.API.Places_Detail.Models.PlacesDetailResponse;
 
 namespace GoogleMapSDK.UI.WinForm.Components.Comment
 {
     public class PlaceReviewItem : BaseReview
     {
-        GoogleContext context = null;
-        public PlaceReviewItem() { 
-            this.context = GoogleContext.InitialGoogleContext();
+        IGoogleContext context = null;
+        public PlaceReviewItem(IGoogleContext context) { 
+            this.context = context; //GoogleContext.InitialGoogleContext();
         }
         public override List<Review> ReviewSource
         {
@@ -32,7 +28,7 @@ namespace GoogleMapSDK.UI.WinForm.Components.Comment
         {
             PlacesDetailRequest placesDetailRequest = new PlacesDetailRequest();
             placesDetailRequest.place_id = placeId;
-            var result = await context.PlacesDetail.GetPlaceDetail(placesDetailRequest);
+            var result = await context.PlaceDetail.GetPlaceDetail(placesDetailRequest);
 
             return result.result.reviews.ToList();
 

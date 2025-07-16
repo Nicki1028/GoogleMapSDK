@@ -1,22 +1,24 @@
 ﻿using GMap.NET;
-using GoogleMapSDK.API;
-using GoogleMapSDK.API.Direction;
 using GoogleMapSDK.Core.Models;
+using GoogleMapSDK.UI.Contract.API;
+using GoogleMapSDK.UI.Contract.API.Directions.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
-using static GoogleMapSDK.API.Direction.DirectionResponse;
 
 namespace GoogleMapSDK.Core.Route
 {
     internal class DirectionRoute
     {
-        GoogleContext context = new GoogleContext();
+        private IGoogleContext _googlecontext;
 
-       
+        public DirectionRoute(IGoogleContext googleContext)
+        {
+            this._googlecontext = googleContext;
+        }
         public async Task <DirectionModel> GetDirectionResponseAsync(string origin, string destination, List<string> waypoints = null)
         {
             DirectionModel directionModel = new DirectionModel();
@@ -24,7 +26,7 @@ namespace GoogleMapSDK.Core.Route
             directionRequest.origin = origin;
             directionRequest.destination = destination;
             directionRequest.waypoints = waypoints;
-            var result = await context.Direction.Direction(directionRequest);
+            var result = await _googlecontext.Direction.GetDirection(directionRequest);
             directionModel.origin = new PointLatLng(result.routes[0].legs[0].start_location.lat, result.routes[0].legs[0].start_location.lng);
             directionModel.destination = new PointLatLng(result.routes[0].legs[0].end_location.lat, result.routes[0].legs[0].end_location.lng);
             foreach (var item in result.routes)
@@ -41,7 +43,7 @@ namespace GoogleMapSDK.Core.Route
             directionRequest.origin = $"{origin.Lat},{origin.Lng}"; 
             directionRequest.destination = $"{destination.Lat},{destination.Lng}"; 
             directionRequest.waypoints = waypoints;
-            var result = await context.Direction.Direction(directionRequest);
+            var result = await _googlecontext.Direction.GetDirection(directionRequest);
             directionModel.origin = new PointLatLng(result.routes[0].legs[0].start_location.lat, result.routes[0].legs[0].start_location.lng);
             directionModel.destination = new PointLatLng(result.routes[0].legs[0].end_location.lat, result.routes[0].legs[0].end_location.lng);
             foreach (var item in result.routes)

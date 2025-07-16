@@ -1,4 +1,5 @@
-﻿using GoogleMapSDK.UI.Contract.Components;
+﻿using GoogleMapSDK.UI.Contract.API;
+using GoogleMapSDK.UI.Contract.Components;
 using GoogleMapSDK.UI.WinForm.Extensions;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,14 @@ namespace GoogleMapSDK.UI.WinForm.Components.Photo
 
         public abstract List<Bitmap> ImageSource { set; }
 
+        protected IGoogleContext context;
+        public BasePhoto(IGoogleContext context)
+        {
+            this.context = context;
+            InitializeComponent();
+            previous.Click += Button_ClickBackward;
+            next.Click += Button_ClickForward;
+        }
         public void InitializeComponent()
         {
             flowLayoutPanel = new FlowLayoutPanel();
@@ -72,13 +81,7 @@ namespace GoogleMapSDK.UI.WinForm.Components.Photo
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 40)); // 下方空白
             return table;
         }
-        public BasePhoto()
-        {
-            InitializeComponent();
-            previous.Click += Button_ClickBackward;
-            next.Click += Button_ClickForward;
-
-        }           
+                 
         protected void RenderImages()
         {           
             if (_photos.Count > 0)

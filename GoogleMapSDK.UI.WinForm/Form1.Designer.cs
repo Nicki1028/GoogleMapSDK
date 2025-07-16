@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.placeAutoComplete2 = new GoogleMapSDK.UI.WinForm.Components.AutoComplete.PlaceAutoComplete();
             this.SuspendLayout();
             // 
             // placeAutoComplete2
