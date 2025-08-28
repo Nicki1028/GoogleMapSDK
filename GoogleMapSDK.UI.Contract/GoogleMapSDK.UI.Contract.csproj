@@ -123,11 +123,12 @@
     <Compile Include="API\StaticMaps\Models\Mapsize.cs" />
     <Compile Include="API\StaticMaps\Models\StaticMapRequest.cs" />
     <Compile Include="API\BaseRequest.cs" />
-    <Compile Include="Components\AutoCompleteBase.cs" />
+    <Compile Include="Components\AutoComplete\AutoCompleteContract.cs" />
     <Compile Include="Components\PhotoBase.cs" />
     <Compile Include="Components\ReviewBase.cs" />
     <Compile Include="API\IGoogleContext.cs" />
     <Compile Include="Models\AutoCompleteModel.cs" />
+    <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

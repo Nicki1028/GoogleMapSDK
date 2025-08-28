@@ -1,33 +1,38 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Media3D;
-using GoogleMapSDK.UI.Contract.Components;
 using System.Windows.Media;
 using System.Windows;
 using GoogleMapSDK.UI.WPF.Extensions;
 using System.Windows.Controls.Primitives;
+using static GoogleMapSDK.UI.Contract.Components.AutoComplete.AutoCompleteContract;
 
 namespace GoogleMapSDK.UI.WPF.Components.AutoComplete
 {
-    public abstract class BaseAutoComplete<T, T2> : TextBox, AutoCompleteBase
+    public abstract class BaseAutoComplete<T, T2> : TextBox, IAutoCompleteView
     {
         private Popup _popup;
         protected ListBox _listBox;
         protected bool _isAdded;
         protected IEnumerable _values;
-        protected string _displaymember;
-        protected string _valuemember;
+        protected string _displaymember = "Key";
+        protected string _valuemember = "Value";
+        public virtual string DisplayMember
+        {
+            get { return _displaymember; }
+            set { _displaymember = value; }
+        }
+        public virtual string ValueMember
+        {
+            get { return _valuemember; }
+            set { _valuemember = value; }
+        }
+
         protected String _formerValue = String.Empty;
-        protected float _dropDownFontSize = 12f; // 預設字體大小
+        protected float _dropDownFontSize = 12f; 
         public float DropDownFontSize
         {
             get => _dropDownFontSize;
@@ -41,8 +46,7 @@ namespace GoogleMapSDK.UI.WPF.Components.AutoComplete
                 }
             }
         }
-
-        protected abstract Task<IEnumerable<T>> GetCompleteSourceAsync();
+        protected abstract Task<IEnumerable<T>> GetCompleteSourceAsync(string input);
         protected abstract Task<T2> GetSelectItemAsync(string selectedItem);
 
         public event EventHandler<T2> OnSelectItem;
@@ -55,9 +59,7 @@ namespace GoogleMapSDK.UI.WPF.Components.AutoComplete
         public void InitializeComponent()
         {
           
-            this._listBox = new ListBox();
-            this.DisplayMember = "Name";
-            this.ValueMember = "Id";
+            this._listBox = new ListBox();          
             this._listBox.ItemContainerStyle = new Style(typeof(ListBoxItem))
             {
                 Setters = { new Setter(FrameworkElement.HeightProperty, 20.0) }
@@ -72,69 +74,21 @@ namespace GoogleMapSDK.UI.WPF.Components.AutoComplete
                 Child = _listBox // 將 ListBox 作為 Popup 的內容
             };
 
-            KeyDown += AutoCompleteList_KeyDown;
-            _listBox.MouseDoubleClick += AutoCompleteList_ItemSelected;
-            this.KeyUp += AutoCompleteList_KeyUp;
+            this.KeyDown += AutoComplete_KeyDown;
+            this._listBox.MouseDoubleClick += BaseAutoComplete_ItemSelectedAsync;
+            this.KeyUp += AutoCompelte_KeyUp;
         }
 
-        public async void AutoCompleteList_KeyDown(object sender, EventArgs e)
+        private async void AutoComplete_KeyDown(object sender, KeyEventArgs e)
         {
-            KeyEventArgs key = (KeyEventArgs)e;
-            switch (key.Key)
-            {
-                case Key.Down:
-                    {
-                        if ((_listBox.Visibility == Visibility.Visible) && (_listBox.SelectedIndex < _listBox.Items.Count - 1))
-                            _listBox.SelectedIndex++;
-                        break;
-                    }
-                case Key.Up:
-                    {
-                        if ((_listBox.Visibility == Visibility.Visible) && (_listBox.SelectedIndex > 0))
-                            _listBox.SelectedIndex--;
-                        break;
-                    }
-                case Key.Tab:
-                case Key.Enter:
-                    {
-                        if (_listBox.Visibility == Visibility.Visible)
-                        {
-
-                            var selecteditem_dismem = _listBox.SelectedItem.GetType().GetProperty(_displaymember);
-                            this.Text = (selecteditem_dismem.GetValue(_listBox.SelectedItem)).ToString();
-                            _formerValue = Text;
-                            T2 t2 = await GetSelectItemAsync(_listBox.SelectedValue.ToString());
-                            OnSelectItem?.Invoke(this, t2);
-                            ResetListBox();
-
-                        }
-                        break;
-                    }
-            }
-
+            await this.AutoComplete_KeyDown(sender, (ConsoleKey)e.Key);
         }
 
-        public async void AutoCompleteList_ItemSelected(object sender, EventArgs e)
+        private void AutoCompelte_KeyUp(object sender, KeyEventArgs e)
         {
-            if (_listBox.Visibility == Visibility.Visible)
-            {
-                var selecteditem_dismem = _listBox.SelectedItem.GetType().GetProperty(_displaymember);
-                this.Text = (selecteditem_dismem.GetValue(_listBox.SelectedItem)).ToString();
-                T2 t2 = await GetSelectItemAsync(_listBox.SelectedValue.ToString());
-                OnSelectItem?.Invoke(this, t2);
-                ResetListBox();
-            }
+            this.AutoCompelte_KeyUp(sender, (ConsoleKey)e.Key);
         }
-
-        public void AutoCompleteList_KeyUp(object sender, EventArgs e)
-        {
-
-            this.Timerextention((async () =>
-            {
-                this.DataSource = await this.GetCompleteSourceAsync();
-            }));
-        }
-
+       
         public object DataSource
         {
             get
@@ -144,47 +98,23 @@ namespace GoogleMapSDK.UI.WPF.Components.AutoComplete
             set
             {
                 _values = value as IEnumerable;
+                
                 UpdateListBox();
             }
-        }
-        public string DisplayMember
-        {
-            get
-            {
-                return _displaymember;
-            }
-            set
-            {
-                _displaymember = value;
-                _listBox.DisplayMemberPath = value;
-            }
-        }
-
-        public string ValueMember
-        {
-            get
-            {
-                return _valuemember;
-            }
-            set
-            {
-                _valuemember = value;
-                _listBox.SelectedValuePath = value;
-            }
-        }
-
+        }      
         public void ResetListBox()
         {
             _listBox.Visibility = Visibility.Collapsed;
             _popup.IsOpen = false;
         }
-
         public void UpdateListBox()
         {
             if (Text == _formerValue) return;
 
             _formerValue = Text;
             _listBox.ItemsSource = _values;
+            _listBox.DisplayMemberPath = DisplayMember;
+            _listBox.SelectedValuePath = ValueMember;
             ShowListBox();
             _listBox.Width = this.ActualWidth;
         }
@@ -199,6 +129,61 @@ namespace GoogleMapSDK.UI.WPF.Components.AutoComplete
             _listBox.Visibility = Visibility.Visible;
             // WPF 中的 BringToFront 等效處理
             _listBox.Focus();
+        }
+
+
+        public void AutoCompelte_KeyUp(object sender, ConsoleKey key)
+        {
+            this.Timerextention((async () =>
+            {
+                this.DataSource = await this.GetCompleteSourceAsync(this.Text);
+            }));
+        }
+
+        public async Task AutoComplete_KeyDown(object sender, ConsoleKey key)
+        {
+            switch (key)
+            {
+                case ConsoleKey.DownArrow:
+                    {
+                        if ((_listBox.Visibility == Visibility.Visible) && (_listBox.SelectedIndex < _listBox.Items.Count - 1))
+                            _listBox.SelectedIndex++;
+                        break;
+                    }
+                case ConsoleKey.UpArrow:
+                    {
+                        if ((_listBox.Visibility == Visibility.Visible) && (_listBox.SelectedIndex > 0))
+                            _listBox.SelectedIndex--;
+                        break;
+                    }
+                case ConsoleKey.Tab:
+                case ConsoleKey.Enter:
+                    {
+                        if (_listBox.Visibility == Visibility.Visible)
+                        {
+
+                            var selecteditem_dismem = _listBox.SelectedItem.GetType().GetProperty(_displaymember);
+                            this.Text = (selecteditem_dismem.GetValue(_listBox.SelectedItem)).ToString();
+                            _formerValue = Text;
+                            T2 t2 = await GetSelectItemAsync(_listBox.SelectedValue.ToString());
+                            OnSelectItem?.Invoke(this, t2);
+                            ResetListBox();
+                        }
+                        break;
+                    }
+            }
+        }
+
+        public async void BaseAutoComplete_ItemSelectedAsync(object sender, EventArgs e)
+        {
+            if (_listBox.Visibility == Visibility.Visible)
+            {
+                var selecteditem_dismem = _listBox.SelectedItem.GetType().GetProperty(_displaymember);
+                this.Text = (selecteditem_dismem.GetValue(_listBox.SelectedItem)).ToString();
+                T2 t2 = await GetSelectItemAsync(_listBox.SelectedValue.ToString());
+                OnSelectItem?.Invoke(this, t2);
+                ResetListBox();
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using GoogleMapSDK.API.Places_Detail;
-using GoogleMapSDK.UI.Contract.Components;
+﻿using GoogleMapSDK.UI.Contract.Components;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
