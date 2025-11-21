@@ -99,7 +99,7 @@
     <Compile Include="API\Enums\EnumTrafficType.cs" />
     <Compile Include="API\Geocodings\IGeocoding.cs" />
     <Compile Include="API\Geocodings\Models\GeocodingRequest.cs" />
-    <Compile Include="API\IGoogleMap.cs" />
+    <Compile Include="Components\GoogleMap\IGoogleMap.cs" />
     <Compile Include="API\Models\Location.cs" />
     <Compile Include="API\Models\PlaceInfo.cs" />
     <Compile Include="API\Place Detail\IPlaceDetail.cs" />
@@ -124,11 +124,14 @@
     <Compile Include="API\StaticMaps\Models\StaticMapRequest.cs" />
     <Compile Include="API\BaseRequest.cs" />
     <Compile Include="Components\AutoComplete\AutoCompleteContract.cs" />
-    <Compile Include="Components\PhotoBase.cs" />
-    <Compile Include="Components\ReviewBase.cs" />
+    <Compile Include="Components\GoogleMap\IOverlay.cs" />
+    <Compile Include="Components\GoogleMap\IOverlayService.cs" />
+    <Compile Include="Components\Comment\ReviewContract.cs" />
     <Compile Include="API\IGoogleContext.cs" />
+    <Compile Include="Components\Photo\PhotoContract.cs" />
     <Compile Include="Models\AutoCompleteModel.cs" />
     <Compile Include="Models\EmployeeModel.cs" />
+    <Compile Include="Models\ReviewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

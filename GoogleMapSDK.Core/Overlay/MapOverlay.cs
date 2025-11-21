@@ -9,7 +9,7 @@ using GoogleMapSDK.UI.Contract.API.Models;
 
 namespace GoogleMapSDK.Core.Overlay
 {
-    public abstract class MapOverlay : GMapOverlay
+    public abstract class  MapOverlay : GMapOverlay
     {
 
         public abstract void Add(double latitude, double longitude, PlaceInfo markerInfo = null);

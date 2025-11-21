@@ -15,7 +15,7 @@ namespace GoogleMapSDK.Core.AutoComplete
     public class PlaceAutoCompletePresenter : IAutoCompletePresenter
     {
         IGoogleContext context = null;      
-        public PlaceAutoCompletePresenter(IGoogleContext context,IAutoCompleteView autoCompleteView)
+        public PlaceAutoCompletePresenter(IGoogleContext context, IAutoCompleteView autoCompleteView)
         {
             this.context = context;
         }

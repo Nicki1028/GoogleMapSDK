@@ -1,4 +1,5 @@
 ﻿using GoogleMapSDK.UI.Contract.Components;
+using GoogleMapSDK.UI.Contract.Components.Comment;
 using GoogleMapSDK.UI.WinForm.Components.AutoComplete;
 using GoogleMapSDK.UI.WinForm.Components.Comment;
 using GoogleMapSDK.UI.WinForm.Components.Photo;
@@ -16,12 +17,12 @@ namespace GoogleMapSDK.UI.WinForm
 {
     public partial class Form1 : Form
     {
-        PlaceReviewItem placeReviewItem;
-        public Form1(IEnumerable<ReviewBase> reviewBase)
+        PlaceReviewView placeReviewItem;
+        public Form1(IEnumerable<ReviewContract> reviewBase)
         {
             InitializeComponent();
-            placeReviewItem =  (PlaceReviewItem)reviewBase.First(x => x is PlaceReviewItem);
-            this.Controls.Add((Control)reviewBase);
+            //placeReviewItem =  (PlaceReviewView)reviewBase.First(x => x is PlaceReviewView);
+            //this.Controls.Add((Control)reviewBase);
         }
 
         private async void Form1_LoadAsync(object sender, EventArgs e)
@@ -32,7 +33,7 @@ namespace GoogleMapSDK.UI.WinForm
             //placePhotoItem.Size = new Size(800, 200);
 
             placeReviewItem.Size = new Size(350, 600);
-            placeReviewItem.ReviewSource = await placeReviewItem.GetReviewsAsync("ChIJy02Q7MEjaDQRVuRcRdQpwc0");
+            //placeReviewItem.ReviewSource = await placeReviewItem.GetReviewsAsync("ChIJy02Q7MEjaDQRVuRcRdQpwc0");
 
         }
     }

@@ -12,22 +12,23 @@ using System.Windows.Media;
 using Brushes = System.Windows.Media.Brushes;
 using Image = System.Windows.Controls.Image;
 using static GoogleMapSDK.UI.Contract.API.Places_Detail.Models.PlacesDetailResponse;
+using static GoogleMapSDK.UI.Contract.Components.Comment.ReviewContract;
+using GoogleMapSDK.UI.Contract.Models;
+using DIContainer;
+using GoogleMapSDK.Core.CommentItem;
 
-namespace GoogleMapSDK.UI.WPF.Comment
+namespace GoogleMapSDK.UI.WPF.Components.Comment
 {
-    public abstract class BaseReview_WPF : UserControl, ReviewBase
+    public abstract class BaseReview_WPF<TReview> : UserControl, IReviewView where TReview : ReviewModel
     {
-        public abstract List<Review> ReviewSource { set; }
 
-        protected List<Review> _reviews;
+        protected IReviewPresenter presenter = null;
 
-        protected Review review;
+        protected List<TReview> _reviews;
 
-        private ScrollViewer scrollViewer;
-
-        private StackPanel mainPanel;
-        public BaseReview_WPF()
+        public BaseReview_WPF(PresenterFactory presenterFactory)
         {
+            presenter = presenterFactory.Create<IReviewPresenter, IReviewView>(this, typeof(PlaceReviewPresenter));
             this.SizeChanged += BaseReview_SizeChanged;
         }
 
@@ -40,13 +41,13 @@ namespace GoogleMapSDK.UI.WPF.Comment
         public void InitializeComponent()
         {
             this.Content = null;
-            scrollViewer = new ScrollViewer
+            ScrollViewer scrollViewer = new ScrollViewer
             {
                 Height = 400,
                 VerticalScrollBarVisibility = ScrollBarVisibility.Auto
             };
 
-            mainPanel = new StackPanel
+            StackPanel mainPanel = new StackPanel
             {
                 Orientation = Orientation.Vertical
             };
@@ -56,14 +57,14 @@ namespace GoogleMapSDK.UI.WPF.Comment
 
             if (_reviews != null)
             {
-                foreach (Review review in _reviews)
+                foreach (TReview review in _reviews)
                 {
                     mainPanel.Children.Add(LoadReview(review));
                 }
             }
         }
        
-        public UIElement LoadReview(Review review)
+        public UIElement LoadReview(TReview review)
         {
             Border reviewBorder = new Border
             {
@@ -155,6 +156,11 @@ namespace GoogleMapSDK.UI.WPF.Comment
             return reviewBorder;
         }
 
+        public async Task RenderReviewDatas<T>(string placeId) where T : ReviewModel
+        {
+            _reviews = await presenter.GetReviewsAsync<TReview>(placeId);
+            InitializeComponent();
+        }
     }   
 }
 

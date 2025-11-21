@@ -13,6 +13,7 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using static GoogleMapSDK.UI.Contract.Components.AutoComplete.AutoCompleteContract;
 using GoogleMapSDK.Core.AutoComplete;
+using GoogleMapSDK.UI.WinForm;
 namespace GoogleMapSDK.WinForm.Test
 {
     internal static class Program
@@ -31,20 +32,20 @@ namespace GoogleMapSDK.WinForm.Test
             .Build();
 
             NickiService services = new NickiService();
-            services.Collection.AddGoogleMapAPIRegistration(configuration);
-            services.AddSingleton<IAutoCompleteView, PlaceAutoCompleteView>();
-            services.AddSingleton<IAutoCompleteView, EmployeeAutoCompleteView>();
+            services.Collection.AddGoogleMapCoreRegistration(configuration);
+            services.Collection.AddGoogleMapWinformRegistration(configuration);
+            //services.AddSingleton<IAutoCompleteView, PlaceAutoCompleteView>();
+            //services.AddSingleton<IAutoCompleteView, EmployeeAutoCompleteView>();
 
-            //在factory會不知道要找哪一個
-            services.AddSingleton<IAutoCompletePresenter, PlaceAutoCompletePresenter>();
-            services.AddSingleton<IAutoCompletePresenter, EmployeeAutoCompletePresenter>();
-            //services.AddSingleton<AutoCompleteBase, EmployeeAutoComplete>();
+            ////在factory會不知道要找哪一個
+            //services.AddSingleton<IAutoCompletePresenter, PlaceAutoCompletePresenter>();
+            //services.AddSingleton<IAutoCompletePresenter, EmployeeAutoCompletePresenter>();
+            ////services.AddSingleton<AutoCompleteBase, EmployeeAutoComplete>();
 
-            services.AddSingleton<IGoogleMap, MapControl>();
+
             services.AddSingleton<Form, Form1>();
             IServiceProvider provider = services.BuildServiceProvider();
             Form form = provider.GetService<Form>();
-
 
             Application.Run(form);
         }

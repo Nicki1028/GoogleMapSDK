@@ -1,4 +1,4 @@
-﻿using GoogleMapSDK.UI.WPF.Comment;
+﻿using GoogleMapSDK.UI.WPF.Components.Comment;
 using GoogleMapSDK.UI.WPF.Components.AutoComplete;
 using GoogleMapSDK.UI.WPF.Components.Photo;
 using System;
@@ -27,8 +27,8 @@ namespace GoogleMapSDK.UI.WPF
         public MainWindow(IEnumerable<IAutoCompleteView> autoCompletes)
         {
             InitializeComponent();
-            PlaceAutoComplete completeView = (PlaceAutoComplete)autoCompletes.First(x => x.GetType() == typeof(PlaceAutoComplete));
-            this.container.Children.Add(completeView);
+            //PlaceAutoComplete_WPF completeView = (PlaceAutoComplete_WPF)autoCompletes.First(x => x.GetType() == typeof(PlaceAutoComplete_WPF));
+            //this.container.Children.Add(completeView);
         }
         private async void Form1_LoadAsync(object sender, EventArgs e)
         {

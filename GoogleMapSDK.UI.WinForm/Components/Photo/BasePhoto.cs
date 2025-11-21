@@ -1,4 +1,7 @@
-﻿using GoogleMapSDK.UI.Contract.API;
+﻿using DIContainer;
+using GoogleMapSDK.Core.CommentItem;
+using GoogleMapSDK.Core.PhotoItem;
+using GoogleMapSDK.UI.Contract.API;
 using GoogleMapSDK.UI.Contract.Components;
 using GoogleMapSDK.UI.WinForm.Extensions;
 using System;
@@ -8,34 +11,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static GoogleMapSDK.UI.Contract.Components.Comment.ReviewContract;
+using static GoogleMapSDK.UI.Contract.Components.Photo.PhotoContract;
 
 namespace GoogleMapSDK.UI.WinForm.Components.Photo
 {
-    public abstract class BasePhoto : UserControl, PhotoBase
+    public abstract class BasePhoto : UserControl, IPhotoView
     {
         protected List<Bitmap> _photos;
-
         protected int counter = 0;
+        public int index => counter;
 
         protected PictureBox pictureBox;
         protected Button previous;
         protected Button next;   
         protected FlowLayoutPanel flowLayoutPanel;
-        private TableLayoutPanel tableLayoutPanel1, tableLayoutPanel2;  
+        protected TableLayoutPanel tableLayoutPanel1, tableLayoutPanel2;  
 
-        public int index => counter;
-
-        public abstract List<Bitmap> ImageSource { set; }
-
-        protected IGoogleContext context;
-        public BasePhoto(IGoogleContext context)
-        {
-            this.context = context;
-            InitializeComponent();
-            previous.Click += Button_ClickBackward;
-            next.Click += Button_ClickForward;
+        public BasePhoto()
+        {           
+            InitializeComponent();           
         }
-        public void InitializeComponent()
+        public abstract Task RenderPhotos(string placeId, int maxHeight);
+        
+        public virtual void InitializeComponent()
         {
             flowLayoutPanel = new FlowLayoutPanel();
             flowLayoutPanel.FlowDirection = FlowDirection.LeftToRight;
@@ -44,12 +43,11 @@ namespace GoogleMapSDK.UI.WinForm.Components.Photo
             tableLayoutPanel1 = CreateCenteredTableLayoutPanel();
             tableLayoutPanel2 = CreateCenteredTableLayoutPanel();
          
-
             pictureBox = new PictureBox();
             pictureBox.Image = Image.FromFile("C:\\Users\\USER\\Desktop\\image.jpg");
             pictureBox.Size = new Size(200, 200);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox.Anchor = AnchorStyles.None;
+            pictureBox.BorderStyle = BorderStyle.None;
 
             previous = new Button();
             previous.Size = new Size(100, 30);
@@ -66,11 +64,14 @@ namespace GoogleMapSDK.UI.WinForm.Components.Photo
             flowLayoutPanel.Controls.Add(tableLayoutPanel1);
             flowLayoutPanel.Controls.Add(pictureBox);
             flowLayoutPanel.Controls.Add(tableLayoutPanel2); 
-            
+
             this.Controls.Add(flowLayoutPanel);
 
+            previous.Click += Button_ClickBackward;
+            next.Click += Button_ClickForward;
+
         }
-        private TableLayoutPanel CreateCenteredTableLayoutPanel()
+        public virtual TableLayoutPanel CreateCenteredTableLayoutPanel()
         {
             TableLayoutPanel table = new TableLayoutPanel();
             table.RowCount = 3;
@@ -91,7 +92,6 @@ namespace GoogleMapSDK.UI.WinForm.Components.Photo
                 counter = counter + 1 < _photos.Count ? counter + 1 : counter;
             }
         }
-
         public void MoveNext()
         {
             if (counter + 1 < _photos.Count)
@@ -101,7 +101,6 @@ namespace GoogleMapSDK.UI.WinForm.Components.Photo
             }
             UpdateButtonState_Startphoto();
         }
-
         public void MovePrevious()
         {
             if (counter - 1 >= 0)
@@ -121,13 +120,9 @@ namespace GoogleMapSDK.UI.WinForm.Components.Photo
             next.Enabled = index+1 < _photos.Count;
             previous.Enabled = index > 0;
         }
-
         public void Button_ClickForward(object sender, EventArgs e) => MoveNext();
         public void Button_ClickBackward(object sender, EventArgs e) => MovePrevious();
 
-   
-        //protected abstract Task<List<Bitmap>> CollectPhotosAsync(string placeId, int maxHeight);
         
-           
     }
 }

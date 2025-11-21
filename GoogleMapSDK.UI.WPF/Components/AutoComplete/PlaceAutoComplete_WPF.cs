@@ -1,5 +1,4 @@
 ﻿
-using GoogleMapSDK.UI.WPF.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,11 +18,11 @@ using DIContainer;
 namespace GoogleMapSDK.UI.WPF.Components.AutoComplete
 {
     [ToolboxItem(true)]
-    public class PlaceAutoComplete : BaseAutoComplete<AutoCompleteModel, PlaceInfo>
+    public class PlaceAutoComplete_WPF : BaseAutoComplete<AutoCompleteModel, PlaceInfo>
     {
      
         IAutoCompletePresenter presenter = null;
-        public PlaceAutoComplete(PresenterFactory presenterFactory)
+        public PlaceAutoComplete_WPF(PresenterFactory presenterFactory)
         {
             presenter = presenterFactory.Create<IAutoCompletePresenter, IAutoCompleteView>(this, typeof(PlaceAutoCompletePresenter));
         }

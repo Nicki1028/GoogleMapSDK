@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 
 namespace GoogleMapSDK.UI.Contract.API
 {
-    public interface IGoogleContext
+    // apiContext.Place.GetPlace("中央大學")
+    public interface IGoogleContext // 外觀模式
     {
         IGeocoding Geocoding { get; set; }
 
@@ -28,6 +29,7 @@ namespace GoogleMapSDK.UI.Contract.API
 
         IPlacePhoto PlacePhoto { get; set; }
 
-        IDirection Direction { get; set; }        
+        IDirection Direction { get; set; } 
+        
     }
 }

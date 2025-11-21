@@ -40,6 +40,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Costura, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.6.0.0\lib\netstandard2.0\Costura.dll</HintPath>
     </Reference>
@@ -124,23 +127,19 @@
   <ItemGroup>
     <Compile Include="AutoComplete\EmployeeAutoCompletePresenter.cs" />
     <Compile Include="AutoComplete\PlaceAutoCompletePresenter.cs" />
+    <Compile Include="CommentItem\PlaceReviewPresenter.cs" />
+    <Compile Include="GoogleMap\OverlayService.cs" />
     <Compile Include="GoogleMapCoreRegistration.cs" />
-    <Compile Include="Marker\MarkerContext.cs" />
     <Compile Include="Models\DirectionModel.cs" />
     <Compile Include="Models\EmployeeInfoModel.cs" />
     <Compile Include="Models\LocationMaker.cs" />
-    <Compile Include="MapControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Models\NearbySearchModel.cs" />
     <Compile Include="Overlay\MapOverlay.cs" />
-    <Compile Include="Overlay\MarkerOverlay\MarkerOverlay.cs" />
-    <Compile Include="Overlay\RouteOverlay\RouteOverlay.cs" />
+    <Compile Include="PhotoItem\PlacePhotoPresenter.cs" />
     <Compile Include="Place\NearbySearchContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Route\DirectionRoute.cs" />
-    <Compile Include="Route\RouteContext.cs" />
+    <Compile Include="Utility\Mapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

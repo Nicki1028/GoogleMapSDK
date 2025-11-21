@@ -1,32 +1,23 @@
-﻿using GoogleMapSDK.API.Place_Photo;
+﻿using GoogleMapSDK.UI.Contract.API;
+using GoogleMapSDK.UI.Contract.API.Place_Photo;
+using GoogleMapSDK.UI.Contract.API.Places_Detail.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using System.Runtime.Remoting.Contexts;
-using GoogleMapSDK.API;
-using System.Windows.Forms;
-using GoogleMapSDK.Core;
-using GoogleMapSDK.UI.Contract.API;
-using GoogleMapSDK.UI.Contract.API.Places_Detail.Models;
-using GoogleMapSDK.UI.Contract.API.Place_Photo;
+using static GoogleMapSDK.UI.Contract.Components.Comment.ReviewContract;
+using static GoogleMapSDK.UI.Contract.Components.Photo.PhotoContract;
 
-namespace GoogleMapSDK.UI.WinForm.Components.Photo
+namespace GoogleMapSDK.Core.PhotoItem
 {
-    public partial class PlacePhotoItem : BasePhoto
+    public class PlacePhotoPresenter: IPhotoPresenter
     {
-        public PlacePhotoItem(IGoogleContext context) : base(context)
+        IGoogleContext context = null;
+        public PlacePhotoPresenter(IGoogleContext context, IPhotoView reviewView)
         {
-        }
-
-        public override List<Bitmap> ImageSource 
-        {
-            set
-            {
-                this._photos = value;
-                RenderImages();
-            }
+            this.context = context;
         }
 
         public async Task<List<Bitmap>> CollectPhotosAsync(string placeId, int maxHeight)
@@ -40,6 +31,7 @@ namespace GoogleMapSDK.UI.WinForm.Components.Photo
             foreach (var info in result.result.photos)
             {
                 photoReferences.Add(info.photo_reference);
+                //Console.WriteLine(info.photo_reference);
             }
 
             List<Task<Bitmap>> photoTasks = new List<Task<Bitmap>>();
@@ -53,17 +45,14 @@ namespace GoogleMapSDK.UI.WinForm.Components.Photo
                         photo_reference = photoRef,
                         maxheight = maxHeight
                     };
+                    Console.WriteLine(photoRequest.photo_reference);
                     return context.PlacePhoto.GetPhoto(photoRequest);
                 }));
+                
             }
-
+            
             List<Bitmap> allPhotos = (await Task.WhenAll(photoTasks)).ToList();
             return allPhotos;
         }
-        
-        private void button1_Click(object sender, EventArgs e) => Button_ClickForward(sender, e);
-        private void button2_Click(object sender, EventArgs e) => Button_ClickBackward(sender, e);
-
     }
 }
-

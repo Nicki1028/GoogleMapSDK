@@ -1,5 +1,10 @@
-﻿using GoogleMapSDK.UI.Contract.Components;
+﻿using DIContainer;
+using GoogleMapSDK.Core.CommentItem;
+using GoogleMapSDK.UI.Contract.Components;
+using GoogleMapSDK.UI.Contract.Models;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,36 +12,42 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static GoogleMapSDK.UI.Contract.API.Places_Detail.Models.PlacesDetailResponse;
+using static GoogleMapSDK.UI.Contract.Components.Comment.ReviewContract;
 
 namespace GoogleMapSDK.UI.WinForm.Components.Comment
 {
-    public abstract class BaseReview : UserControl, ReviewBase
+    public abstract class BaseReview<TReview> : UserControl, IReviewView where TReview : ReviewModel
     {
-        public abstract List<Review> ReviewSource { set ; }
+        protected IReviewPresenter presenter = null;
 
-        protected List<Review> _reviews = new List<Review>();   
-
-        protected Review review;
-
-
-        public BaseReview()
+        protected List<TReview> _reviews;
+       
+        public BaseReview(PresenterFactory presenterFactory)
         {
+            presenter = presenterFactory.Create<IReviewPresenter, IReviewView>(this, typeof(PlaceReviewPresenter));
             this.SizeChanged += BaseReview_SizeChanged;
+
+        }
+   
+        public async Task RenderReviewDatas<T>(string placeId) where T : ReviewModel
+        {
+            _reviews = await presenter.GetReviewsAsync<TReview>(placeId);
+            InitializeComponent();
         }
 
         private void BaseReview_SizeChanged(object sender, EventArgs e)
         {
-            if(this._reviews!=null)
-                InitializeComponent();
+            //if(this._reviews!=null)
+            //  InitializeComponent();
         }
 
-        public void InitializeComponent()
+        public virtual void InitializeComponent()
         {
             this.Controls.Clear();
             FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
             flowLayoutPanel.Size = this.Size;
             flowLayoutPanel.AutoScroll = true;
-            foreach (Review review in _reviews)
+            foreach (TReview review in _reviews)
             {
                 FlowLayoutPanel commonPanel = LoadReview(review);
                 commonPanel.Width = this.Size.Width;
@@ -46,28 +57,28 @@ namespace GoogleMapSDK.UI.WinForm.Components.Comment
 
         }
 
-        public FlowLayoutPanel LoadReview(Review review)
+        public virtual FlowLayoutPanel LoadReview(TReview review)
         {
             FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel
             {
+                Width = this.Size.Width,
                 Height = 150,
-                WrapContents = true,               
+                WrapContents = true,
                 Margin = new Padding(5),
                 BorderStyle = BorderStyle.FixedSingle,
             };
 
-
             PictureBox pictureBox = new PictureBox
             {
-                Size = new Size(50, 50),               
-                SizeMode = PictureBoxSizeMode.Zoom,               
+                Size = new Size(50, 50),
+                SizeMode = PictureBoxSizeMode.Zoom,
             };
             pictureBox.LoadAsync(review.profile_photo_url);
 
             Label nameLabel = new Label
             {
                 Text = review.author_name,
-                Font = new Font("Arial", 12, FontStyle.Bold),           
+                Font = new Font("Arial", 12, FontStyle.Bold),
             };
 
             Label starLabel = new Label
@@ -84,9 +95,9 @@ namespace GoogleMapSDK.UI.WinForm.Components.Comment
             Label commentLabel = new Label
             {
                 Text = review.text,
-          
+
                 Width = flowLayoutPanel.Width,
-                Height = 100,              
+                Height = 100,
                 Font = new Font("Times New Roman", 12)
             };
 
@@ -94,7 +105,7 @@ namespace GoogleMapSDK.UI.WinForm.Components.Comment
             {
                 ColumnCount = 2,
                 RowCount = 4, // 4 行對應 Name, Star, Time, Comment
-                Width = 10,
+                Width = flowLayoutPanel.Width,
                 Height = 20,
                 AutoSize = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
@@ -117,10 +128,11 @@ namespace GoogleMapSDK.UI.WinForm.Components.Comment
             tableLayout.Controls.Add(starLabel, 1, 1);   // 星星評價
             tableLayout.Controls.Add(timeLabel, 1, 2);   // 時間
             tableLayout.Controls.Add(commentLabel, 1, 3); // 評論
-          
+
             flowLayoutPanel.Controls.Add(tableLayout);
             return flowLayoutPanel;
-            
+
         }
+
     }
 }

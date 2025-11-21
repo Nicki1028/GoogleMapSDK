@@ -5,9 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GoogleMapSDK.WPF.Test"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        xmlns:gmap="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation">
+    <!--<Grid>
+        <GroupBox Name="mapgroup" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+            <gmap:GMapControl Name="mapControl"  Zoom="13" MaxZoom="24" MinZoom="1" />
+        </GroupBox>
+    </Grid>-->
 
-    <StackPanel Orientation="Horizontal" Name="container">
-        
-    </StackPanel>
+
+    <!--<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+
+        <Button Grid.Row="0" Grid.Column="0" Content="上一張" Width="100" Height="30" ></Button>
+        <Image Grid.Row="0"  Grid.Column="1" Source="https://img.freepik.com/free-photo/beautiful-landscape-around-lake-kawaguchiko_74190-3059.jpg?semt=ais_hybrid"></Image>
+        <Button Grid.Row="0" Grid.Column="2" Content="下一張" Width="100" Height="30"  ></Button>
+    </Grid>-->
+
+
+
+
+
+ <Grid x:Name="componentContainer">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>  
+    </Grid>
+
 </Window>
